@@ -1,0 +1,9 @@
+﻿{
+  "CasterLevelsReq": 2, // this is how many caster levels is needed before we get additional damage dice for each step. Default is two caster levels for a new damage dice. (So 2d3 at Level 2 Wizard, 3d3 at Level 4 Wizard, 4d3 at Level 6 wizard, etc)
+  "MaxDice": 6, // this is the max amount of damage dice we're allowed to have for cantrips. By default, this caps out at 6d3.
+  "DisruptCasterLevelsReq": 3, //disrupt undead values, works like the above except Disrupt Undead uses D6
+  "DisruptMaxDice": 4,
+  "VirtueCasterLevelsReq": 2, // works similarly to other cantrips, except Virtue's about temporary HP.
+  "VirtueMaxDice": 10,
+  "IgnoreDivineZap":  false //if you feel like divine casters are in a better spot compared to arcane ones and don't need damage support
+}
