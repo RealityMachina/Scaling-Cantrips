@@ -22,6 +22,10 @@ using Kingmaker.UnitLogic.Abilities.Components.Base;
 using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.RuleSystem.Rules.Damage;
+using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.UnitLogic.FactLogic;
+using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.Blueprints.Classes;
 
 namespace ScalingCantrips
 {
@@ -46,6 +50,7 @@ namespace ScalingCantrips
             {
                 var ShockingGrasp = Resources.GetBlueprint<BlueprintAbility>("17451c1327c571641a1345bd31155209");
                 var TouchReference = Resources.GetBlueprint<BlueprintItemWeapon>("bb337517547de1a4189518d404ec49d4");
+                var EldritchScionCantrips = Resources.GetBlueprint<BlueprintFeature>("d093b8dec70b5d144acb593a3029d830");
                 var JoltingGraspEffect = Helpers.CreateBlueprint<BlueprintAbility>("RMJoltingGraspEffect", bp =>
                     {
 
@@ -57,6 +62,8 @@ namespace ScalingCantrips
                         bp.SpellResistance = true;
                         bp.CanTargetEnemies = true;
                         bp.CanTargetSelf = true;
+                        bp.LocalizedDuration = ShockingGrasp.LocalizedDuration;
+                        bp.LocalizedSavingThrow = ShockingGrasp.LocalizedSavingThrow;
                         bp.EffectOnEnemy = AbilityEffectOnUnit.Harmful;
                         bp.Animation = Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Touch;
                         bp.AnimationStyle = Kingmaker.View.Animation.CastAnimationStyle.CastActionTouch;
@@ -147,6 +154,8 @@ namespace ScalingCantrips
                     bp.SpellResistance = true;
                     bp.CanTargetEnemies = true;
                     bp.CanTargetSelf = true;
+                    bp.LocalizedDuration = ShockingGrasp.LocalizedDuration;
+                    bp.LocalizedSavingThrow = ShockingGrasp.LocalizedSavingThrow;
                     bp.EffectOnEnemy = AbilityEffectOnUnit.Harmful;
                     bp.Animation = Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Touch;
                     bp.AnimationStyle = Kingmaker.View.Animation.CastAnimationStyle.CastActionTouch;
@@ -171,6 +180,11 @@ namespace ScalingCantrips
                 });
                 SpellTools.AddToSpellList(JoltingGraspCast, SpellTools.SpellList.MagusSpellList, 0);
                 SpellTools.AddToSpellList(JoltingGraspCast, SpellTools.SpellList.BloodragerSpellList, 0);
+
+                // eldritch scion does it by feat so we'll need to do some stuff here
+                EldritchScionCantrips.GetComponent<AddFacts>().m_Facts.AddItem(JoltingGraspCast.ToReference<BlueprintUnitFactReference>());
+                EldritchScionCantrips.GetComponent<LearnSpells>().m_Spells.AddItem(JoltingGraspCast.ToReference<BlueprintAbilityReference>());
+                EldritchScionCantrips.GetComponent<BindAbilitiesToClass>().m_Abilites.AddItem(JoltingGraspCast.ToReference<BlueprintAbilityReference>());
             }
         }
 
