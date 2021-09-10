@@ -3,7 +3,9 @@
   "MaxDice": 6, // this is the max amount of damage dice we're allowed to have for cantrips. By default, this caps out at 6d3.
   "DisruptCasterLevelsReq": 3, //disrupt undead values, works like the above except Disrupt Undead uses D6
   "DisruptMaxDice": 4,
-  "VirtueCasterLevelsReq": 2, // works similarly to other cantrips, except Virtue's about temporary HP.
+  "VirtueCasterLevelsReq": 2, // works similarly to other cantrips, except Virtue's about temporary HP. Level 2 caster grants 2 temp HP, Level 4 caster is 3 temp HP, etc.
   "VirtueMaxDice": 10,
-  "IgnoreDivineZap":  false //if you feel like divine casters are in a better spot compared to arcane ones and don't need damage support
+  "IgnoreDivineZap": false, //if you feel like divine casters are in a better spot compared to arcane ones and don't need damage support
+  "JoltingGraspLevelsReq": 2,
+  "JoltingGraspMaxDice":  7 //7d3 is the max
 }

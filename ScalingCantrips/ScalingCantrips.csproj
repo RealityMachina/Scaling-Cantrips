@@ -125,6 +125,7 @@
     <Compile Include="Config\SettingGroup.cs" />
     <Compile Include="Extensions\ExtentionMethods.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="MeleeTouchCantrips.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Settings.cs" />

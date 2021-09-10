@@ -18,7 +18,7 @@ namespace ScalingCantrips.Config
         int MaxDice = 6;
 
         [JsonProperty]
-        int DisruptCasterLevelsReq = 5;
+        int DisruptCasterLevelsReq = 3;
 
         [JsonProperty]
         int DisruptMaxDice = 4;
@@ -26,11 +26,16 @@ namespace ScalingCantrips.Config
         [JsonProperty]
         int VirtueCasterLevelsReq = 2;
         [JsonProperty]
-        int VirtueMaxDice = 5;
+        int VirtueMaxDice = 10;
 
         [JsonProperty]
         bool IgnoreDivineZap = false;
 
+        [JsonProperty]
+        int JoltingGraspLevelsReq = 2;
+
+        [JsonProperty]
+        int JoltingGraspMaxDice = 7;
         public void OverrideSettings(IUpdatableSettings userSettings)
         {
             var loadedSettings = userSettings as Scaling;
@@ -44,7 +49,20 @@ namespace ScalingCantrips.Config
             DisruptMaxDice = Math.Max(loadedSettings.DisruptMaxDice, 1);
             DisruptCasterLevelsReq = Math.Max(loadedSettings.DisruptCasterLevelsReq, 1);
             IgnoreDivineZap = loadedSettings.IgnoreDivineZap; //either it's false or not
+            JoltingGraspLevelsReq = Math.Max(loadedSettings.JoltingGraspLevelsReq, 1);
+            JoltingGraspMaxDice = Math.Max(loadedSettings.JoltingGraspMaxDice, 1); ; //either it's false or not
         }
+
+        public int GetJoltingGraspMaxDice()
+        {
+            return JoltingGraspMaxDice;
+        }
+
+        public int GetJoltingGraspLevelsReq()
+        {
+            return JoltingGraspLevelsReq;
+        }
+
 
         public int GetMaxDice()
         {
