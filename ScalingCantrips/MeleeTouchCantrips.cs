@@ -1,4 +1,11 @@
-﻿using HarmonyLib;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Kingmaker.UnitLogic.Buffs.Blueprints;
+using Kingmaker.Designers.Mechanics.Buffs;
+using HarmonyLib;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Enums;
@@ -10,13 +17,7 @@ using Kingmaker.UnitLogic.Mechanics.Components;
 using ScalingCantrips.Extensions;
 using ScalingCantrips.Utilities;
 using ScalingCantrips.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kingmaker.UnitLogic.Buffs.Blueprints;
-using Kingmaker.Designers.Mechanics.Buffs;
+
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Components.Base;
 using Kingmaker.Blueprints.Items.Weapons;
@@ -26,6 +27,7 @@ using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.Blueprints.Classes;
+using Kingmaker.UI.UnitSettings.Blueprints;
 
 namespace ScalingCantrips
 {
@@ -50,7 +52,7 @@ namespace ScalingCantrips
             {
                 var ShockingGrasp = Resources.GetBlueprint<BlueprintAbility>("17451c1327c571641a1345bd31155209");
                 var TouchReference = Resources.GetBlueprint<BlueprintItemWeapon>("bb337517547de1a4189518d404ec49d4");
-                var EldritchScionCantrips = Resources.GetBlueprint<BlueprintFeature>("d093b8dec70b5d144acb593a3029d830");
+                
                 var JoltingGraspEffect = Helpers.CreateBlueprint<BlueprintAbility>("RMJoltingGraspEffect", bp =>
                     {
 
@@ -154,6 +156,7 @@ namespace ScalingCantrips
                     bp.SpellResistance = true;
                     bp.CanTargetEnemies = true;
                     bp.CanTargetSelf = true;
+                    bp.ActionBarAutoFillIgnored = false;
                     bp.LocalizedDuration = ShockingGrasp.LocalizedDuration;
                     bp.LocalizedSavingThrow = ShockingGrasp.LocalizedSavingThrow;
                     bp.EffectOnEnemy = AbilityEffectOnUnit.Harmful;
@@ -176,15 +179,51 @@ namespace ScalingCantrips
                     bp.AddComponent(Helpers.Create<AbilityEffectStickyTouch>(c => {
                         c.m_TouchDeliveryAbility = JoltingGraspEffect.ToReference<BlueprintAbilityReference>();
                     }));
- 
+                    //bp.AddComponent(Helpers.Create<ActionPanelLogic>(c =>
+                    //{
+                    //    c.AutoCastConditions = new Kingmaker.ElementsSystem.ConditionsChecker() {
+                    //        Operation = Kingmaker.ElementsSystem.Operation.Or,
+                    //        Conditions = new Kingmaker.ElementsSystem.Condition[]
+                    //        {
+
+                    //        }
+                    //    };
+                    //    c.AutoFillConditions = new Kingmaker.ElementsSystem.ConditionsChecker();
+                    //}));
+                    bp.AddComponent(Helpers.Create<SpellListComponent>(c =>
+                    {
+                        c.m_SpellList = SpellTools.SpellList.MagusSpellList.ToReference<BlueprintSpellListReference>();
+                    }));
+                    bp.AddComponent(Helpers.Create<SpellListComponent>(c =>
+                    {
+                        c.m_SpellList = SpellTools.SpellList.BloodragerSpellList.ToReference<BlueprintSpellListReference>();
+                    }));
+                    AddSpellToCantripFeatures(bp);
+                    SpellTools.AddToSpellList(bp, SpellTools.SpellList.MagusSpellList, 0);               
+                    SpellTools.AddToSpellList(bp, SpellTools.SpellList.BloodragerSpellList, 0);
                 });
-                SpellTools.AddToSpellList(JoltingGraspCast, SpellTools.SpellList.MagusSpellList, 0);
-                SpellTools.AddToSpellList(JoltingGraspCast, SpellTools.SpellList.BloodragerSpellList, 0);
+  
 
                 // eldritch scion does it by feat so we'll need to do some stuff here
-                EldritchScionCantrips.GetComponent<AddFacts>().m_Facts.AddItem(JoltingGraspCast.ToReference<BlueprintUnitFactReference>());
-                EldritchScionCantrips.GetComponent<LearnSpells>().m_Spells.AddItem(JoltingGraspCast.ToReference<BlueprintAbilityReference>());
-                EldritchScionCantrips.GetComponent<BindAbilitiesToClass>().m_Abilites.AddItem(JoltingGraspCast.ToReference<BlueprintAbilityReference>());
+
+            }
+
+            static void AddSpellToCantripFeatures(BlueprintAbility bp)
+            {
+                var EldritchScionCantrips = Resources.GetBlueprint<BlueprintFeature>("d093b8dec70b5d144acb593a3029d830");
+                var MagusCantrips = Resources.GetBlueprint<BlueprintFeature>("fa5799fb32844e94e88d4cb3430610ff");
+                var EldritchScoundrelCantrips = Resources.GetBlueprint<BlueprintFeature>("0e451b208e7b855468986e03fcd4f990");
+                var CantripsList = new BlueprintFeature[] { EldritchScionCantrips, EldritchScoundrelCantrips, MagusCantrips };
+                // Magus Cantrips
+                // Eldritch Scoundrel
+                
+                foreach (var cantrip in CantripsList)
+                {
+
+                   cantrip.GetComponent<AddFacts>().m_Facts =  cantrip.GetComponent<AddFacts>().m_Facts.AppendToArray(bp.ToReference<BlueprintUnitFactReference>());
+                   cantrip.GetComponent<LearnSpells>().m_Spells = cantrip.GetComponent<LearnSpells>().m_Spells.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
+                   cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites = cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
+                }
             }
         }
 

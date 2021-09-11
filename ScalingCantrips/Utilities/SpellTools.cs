@@ -49,6 +49,7 @@ namespace ScalingCantrips.Utilities {
                     spell.AddComponent(comp);
                 }
             }
+
             void AddToListIfMissing(BlueprintSpellList list)
             {
                 if (list == null) { return; }

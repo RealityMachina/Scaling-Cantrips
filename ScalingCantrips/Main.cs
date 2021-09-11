@@ -26,8 +26,8 @@ namespace ScalingCantrips
 			Main.settings = UnityModManager.ModSettings.Load<Settings>(modEntry);
             ModSettings.ModEntry = modEntry;
             ModSettings.LoadAllSettings();
-            modEntry.OnGUI = new Action<UnityModManager.ModEntry>(Main.OnGUI);
-			modEntry.OnSaveGUI = new Action<UnityModManager.ModEntry>(Main.OnSaveGUI);
+            //modEntry.OnGUI = new Action<UnityModManager.ModEntry>(Main.OnGUI);
+			//modEntry.OnSaveGUI = new Action<UnityModManager.ModEntry>(Main.OnSaveGUI);
             harmony.PatchAll(Assembly.GetExecutingAssembly());
             PostPatchInitializer.Initialize();
             return true;
@@ -44,21 +44,17 @@ namespace ScalingCantrips
 			Main.settings.Save(modEntry);
 		}
 
-		private static void OnGUI(UnityModManager.ModEntry modEntry)
-		{
-			if (!Main.iAmEnabled)
-			{
-				return;
-			}
-			GUILayoutOption[] options = new GUILayoutOption[]
-			{
-				GUILayout.ExpandWidth(false)
-			};
-           
-		}
+        private static void OnGUI(UnityModManager.ModEntry modEntry)
+        {
+            if (!Main.iAmEnabled)
+            {
+                return;
+            }
+
+        }
 
 
-		private static bool iAmEnabled;
+        private static bool iAmEnabled;
 
 		public static Settings settings;
 
