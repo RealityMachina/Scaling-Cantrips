@@ -36,6 +36,16 @@ namespace ScalingCantrips.Config
 
         [JsonProperty]
         int JoltingGraspMaxDice = 7;
+
+        [JsonProperty]
+        int DisruptLifeLevelsReq = 3;
+
+        [JsonProperty]
+        int DisruptLifeMaxDice = 4;
+
+        [JsonProperty]
+        bool DontAddUnholyZap = false;
+
         public void OverrideSettings(IUpdatableSettings userSettings)
         {
             var loadedSettings = userSettings as Scaling;
@@ -51,6 +61,23 @@ namespace ScalingCantrips.Config
             IgnoreDivineZap = loadedSettings.IgnoreDivineZap; //either it's false or not
             JoltingGraspLevelsReq = Math.Max(loadedSettings.JoltingGraspLevelsReq, 1);
             JoltingGraspMaxDice = Math.Max(loadedSettings.JoltingGraspMaxDice, 1); ; //either it's false or not
+            DisruptLifeLevelsReq = Math.Max(loadedSettings.DisruptLifeLevelsReq, 1);
+            DisruptLifeMaxDice = Math.Max(loadedSettings.DisruptLifeMaxDice, 1);
+            DontAddUnholyZap = loadedSettings.DontAddUnholyZap;
+        }
+
+        public bool UnholyZapUnavailable()
+        {
+            return DontAddUnholyZap;
+        }
+        public int GetDisruptLifeMaxDice()
+        {
+            return DisruptLifeMaxDice;
+        }
+
+        public int GetDisruptLifeLevelsReq()
+        {
+            return DisruptLifeLevelsReq;
         }
 
         public int GetJoltingGraspMaxDice()
