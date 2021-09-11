@@ -102,7 +102,8 @@ namespace ScalingCantrips
                         RankConfig.m_Max = ModSettings.Scaling.GetJoltingGraspMaxDice(); // but get 4d3 at max level (though obviously
                         RankConfig.m_UseMax = true;
                         RankConfig.m_UseMin = true;
-                        RankConfig.m_BaseValueType = ContextRankBaseValueType.CasterLevel;
+                        RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
+                        RankConfig.m_CustomProperty = CantripPatcher.BlueprintPatcher.CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
                         bp.AddComponent(RankConfig);
 
                         bp.AddComponent(Helpers.Create<AbilityEffectRunAction>(c =>

@@ -17,14 +17,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.Designers.Mechanics.Buffs;
+using Kingmaker.UnitLogic.Mechanics.Properties;
 
 namespace ScalingCantrips
 {
 
-    class CantripPatcher
+    public class CantripPatcher
     {
         [HarmonyPatch(typeof(BlueprintsCache), "Init")]
-        static class BlueprintPatcher
+        public static class BlueprintPatcher
         {
             static bool Initialized;
 
@@ -33,9 +34,24 @@ namespace ScalingCantrips
                 if (Initialized) return;
                 Initialized = true;
                 Main.Log("Patching Cantrips");
+                CreateHighestCasterLevel();
                 PatchCantrips();
             }
+            public static BlueprintUnitProperty CreateHighestCasterLevel()
+            {
+                var customProperty = Resources.GetModBlueprint<BlueprintUnitProperty>("RMHighestCasterLevelCantrips");
 
+                if (customProperty == null)
+                {
+                    customProperty = Helpers.CreateBlueprint<BlueprintUnitProperty>("RMHighestCasterLevelCantrips", bp => {
+                        bp.AddComponent(new HighestCasterLevel());
+                    });
+                    
+                }
+
+                return customProperty;
+
+            }
             static void PatchCantrips()
             {
                 BlueprintAbility AcidSplash = Resources.GetBlueprint<BlueprintAbility>("0c852a2405dd9f14a8bbcfaf245ff823");
@@ -63,14 +79,15 @@ namespace ScalingCantrips
             static void EditAndAddTempHP(BlueprintBuff buff, BlueprintAbility cantrip)
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
+              
                 RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetVirtueCasterLevelsReq();
                 RankConfig.m_Min = 1; //so this should be normal at first level
                 RankConfig.m_Max = ModSettings.Scaling.GetVirtueMaxDice(); // but get 4d3 at max level (though obviously
                 RankConfig.m_UseMax = true;
                 RankConfig.m_UseMin = true;
-                RankConfig.m_BaseValueType = ContextRankBaseValueType.CasterLevel;
-
+                RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
+                RankConfig.m_CustomProperty = CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
                 buff.GetComponent<TemporaryHitPointsFromAbilityValue>().Value.ValueType = ContextValueType.Rank;
                 buff.GetComponent<TemporaryHitPointsFromAbilityValue>().Value.Value = 0;
 
@@ -95,13 +112,15 @@ namespace ScalingCantrips
             static void EditAndAddAbility(BlueprintAbility cantrip)
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
+               
                 RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetCasterLevelsReq();
                 RankConfig.m_Min = 1; //so this should be normal at first level
                 RankConfig.m_Max = ModSettings.Scaling.GetMaxDice(); // but get 4d3 at max level (though obviously
                 RankConfig.m_UseMax = true;
                 RankConfig.m_UseMin = true;
-                RankConfig.m_BaseValueType = ContextRankBaseValueType.CasterLevel;
+                RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
+                RankConfig.m_CustomProperty = CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
                 cantrip.GetComponent<AbilityEffectRunAction>()
                     .Actions.Actions.OfType<ContextActionDealDamage>().First().Value
                     .DiceCountValue.ValueType = ContextValueType.Rank;
@@ -131,13 +150,15 @@ namespace ScalingCantrips
             static void EditAndAddAbilityUndead(BlueprintAbility cantrip)
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
+                
                 // RankConfig.m_Type = AbilityRankType.ProjectilesCount;
                 RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetDisruptCasterLevelsReq();
                 RankConfig.m_Min = 1; //so this should be normal at first level
                 RankConfig.m_Max = ModSettings.Scaling.GetDisruptMaxDice(); // but get 5d6 at max level
                 RankConfig.m_UseMax = true;
-
+                RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
+                RankConfig.m_CustomProperty = CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
                 cantrip.GetComponent<AbilityEffectRunAction>()
                    .Actions.Actions.OfType<ContextActionDealDamage>().First().Value
                     .DiceCountValue.ValueType = ContextValueType.Rank;

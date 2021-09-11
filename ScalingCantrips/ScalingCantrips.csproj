@@ -124,6 +124,7 @@
     <Compile Include="Config\Scaling.cs" />
     <Compile Include="Config\SettingGroup.cs" />
     <Compile Include="Extensions\ExtentionMethods.cs" />
+    <Compile Include="HighestCasterLevel.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MeleeTouchCantrips.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

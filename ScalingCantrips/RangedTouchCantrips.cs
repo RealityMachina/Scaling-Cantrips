@@ -28,6 +28,8 @@ using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.Designers.Mechanics.Facts;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.UI.UnitSettings.Blueprints;
+using Kingmaker.UnitLogic.Mechanics.Properties;
+
 namespace ScalingCantrips
 {
     
@@ -56,6 +58,7 @@ namespace ScalingCantrips
                 var SickeningRay = Resources.GetBlueprint<BlueprintAbility>("42a65895ba0cb3a42b6019039dd2bff1");
                 var ProjectileRef = Resources.GetBlueprint<BlueprintProjectile>("8cc159ce94d29fe46a94b80ce549161f");
                 var WeapRef = Resources.GetBlueprint<BlueprintItemWeapon>("f6ef95b1f7bb52b408a5b345a330ffe8");
+
                 var UnholyZap = Helpers.CreateBlueprint<BlueprintAbility>("RMFirebolt", bp =>
                 {
 
@@ -97,7 +100,6 @@ namespace ScalingCantrips
                     {
                         c.School = SpellSchool.Evocation;
                     }));
-
                     var RankConfig = Helpers.CreateContextRankConfig();
                     RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                     RankConfig.m_StepLevel = ModSettings.Scaling.GetCasterLevelsReq();
@@ -105,7 +107,8 @@ namespace ScalingCantrips
                     RankConfig.m_Max = ModSettings.Scaling.GetMaxDice(); // but get 4d3 at max level (though obviously
                     RankConfig.m_UseMax = true;
                     RankConfig.m_UseMin = true;
-                    RankConfig.m_BaseValueType = ContextRankBaseValueType.CasterLevel;
+                    RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
+                    RankConfig.m_CustomProperty = CantripPatcher.BlueprintPatcher.CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
                     bp.AddComponent(RankConfig);
                     bp.AddComponent(Helpers.Create<CantripComponent>());
                     bp.AddComponent(Helpers.Create<AbilityEffectRunAction>(c =>
@@ -219,7 +222,8 @@ namespace ScalingCantrips
                     RankConfig.m_Max = ModSettings.Scaling.GetDisruptLifeMaxDice(); // but get 4d3 at max level (though obviously
                     RankConfig.m_UseMax = true;
                     RankConfig.m_UseMin = true;
-                    RankConfig.m_BaseValueType = ContextRankBaseValueType.CasterLevel;
+                    RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
+                    RankConfig.m_CustomProperty = CantripPatcher.BlueprintPatcher.CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
                     bp.AddComponent(RankConfig);
                     bp.AddComponent(Helpers.Create<CantripComponent>());
                     bp.AddComponent(Helpers.Create<AbilityEffectRunAction>(c =>
