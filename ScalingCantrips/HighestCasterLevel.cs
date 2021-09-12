@@ -9,6 +9,7 @@ using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.EntitySystem.Entities;
 using Kingmaker.UnitLogic;
+using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Mechanics.Properties;
 using UnityEngine;
 
@@ -23,15 +24,16 @@ namespace ScalingCantrips
             // this won't be perfect but it will at least be a fix
             // we will go through every non-mythic spellbook and just send back the highest out
             int HighestCasterLevel = 0;
-            Main.Log("Checking that we're firing at all.");
-
             foreach (Spellbook spellbook in unit.Descriptor.Spellbooks)
             {
-                Main.Log("Testing spellbook " + spellbook.m_Type);
-                Main.Log("Caster Level" + spellbook.CasterLevel.ToString());
-                Main.Log("First level" + spellbook.FirstSpellbookLevel.ToString());
-                if( HighestCasterLevel < spellbook.CasterLevel && !spellbook.IsMythic)
-                    HighestCasterLevel = spellbook.CasterLevel;
+                        if (HighestCasterLevel < spellbook.CasterLevel && !spellbook.IsMythic)
+                        {
+                            HighestCasterLevel = spellbook.CasterLevel;
+                            break;
+                       }
+                    
+                
+
 
             }
 

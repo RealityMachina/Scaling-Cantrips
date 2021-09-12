@@ -86,6 +86,13 @@ namespace ScalingCantrips
                     bp.ResourceAssetIds.AddItem("2c17c9fd2d8a2314cb1efe869dba4b4a");
                     bp.ResourceAssetIds.AddItem("ee17299746e406d4a9559e2274d18a1b");
                     bp.ResourceAssetIds.AddItem("85a59070f10741745af33c96a5d967f4");
+                    bp.AddComponent(Helpers.Create<SpellDescriptorComponent>(c =>
+                    {
+                        c.Descriptor = new SpellDescriptorWrapper() {
+                            m_IntValue = (long)SpellDescriptor.Fire
+                        };
+
+                    }));
                     bp.AddComponent(Helpers.Create<AbilityDeliverProjectile>(c =>
                     {
                         c.m_Projectiles = new BlueprintProjectileReference[]
@@ -200,6 +207,7 @@ namespace ScalingCantrips
                     bp.ResourceAssetIds.AddItem("53279164584a8df4f9b2d6c40d65673d");
                     bp.ResourceAssetIds.AddItem("76b5b5a45eef7e94ca4006486e245b68");
                     bp.ResourceAssetIds.AddItem("e197ea880ace2ca4a9f96598ca96f81e");
+
                     bp.AddComponent(Helpers.Create<AbilityDeliverProjectile>(c =>
                     {
                         c.m_Projectiles = new BlueprintProjectileReference[]
