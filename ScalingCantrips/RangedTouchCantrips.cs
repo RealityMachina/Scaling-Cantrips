@@ -183,12 +183,12 @@ namespace ScalingCantrips
 
                     bp.m_Icon = SickeningRay.m_Icon;
                     bp.SetName("Unholy Zap");
-                    bp.SetDescription("You unleash unholy powers against a single target via a ranged touch attack. If successful, the target takes {g|Encyclopedia:Dice}1d6{/g} points of negative {g|Encyclopedia:Damage}damage{/g}; for every "
+                    bp.SetDescription("You unleash unholy powers against a single target via a ranged touch attack. If successful, the target takes {g|Encyclopedia:Dice}1d3{/g} points of negative {g|Encyclopedia:Damage}damage{/g}; for every "
                         + ModSettings.Scaling.GetDisruptLifeLevelsReq() + " caster level(s), another dice is added up to a max of " + ModSettings.Scaling.GetDisruptLifeMaxDice() +
-                        "d6. Fortitude saves if successful, halves damage.");
+                        "d3. Fortitude saves if successful, halves damage.");
                     bp.m_TargetMapObjects = true;
                     bp.Range = AbilityRange.Close;
-                    bp.SpellResistance = true;
+                    bp.SpellResistance = false;
                     bp.CanTargetEnemies = true;
                     bp.CanTargetSelf = true;
                     bp.LocalizedDuration = DivineZap.LocalizedDuration;
@@ -216,7 +216,7 @@ namespace ScalingCantrips
                         };   
                         c.m_LineWidth.m_Value = 5.0f;
                         c.m_Weapon = WeapRef.ToReference<BlueprintItemWeaponReference>();
-                        c.NeedAttackRoll = true;
+                        c.NeedAttackRoll = false;
                     }));
                     bp.AddComponent(Helpers.Create<SpellComponent>(c =>
                     {
@@ -258,7 +258,7 @@ namespace ScalingCantrips
                                         },
                                         Value = new ContextDiceValue()
                                         {
-                                            DiceType = Kingmaker.RuleSystem.DiceType.D6,
+                                            DiceType = Kingmaker.RuleSystem.DiceType.D3,
                                             DiceCountValue = new ContextValue()
                                             {
                                                 ValueType = ContextValueType.Rank

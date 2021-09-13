@@ -38,10 +38,10 @@ namespace ScalingCantrips.Config
         int JoltingGraspMaxDice = 7;
 
         [JsonProperty]
-        int DisruptLifeLevelsReq = 3;
+        int DisruptLifeLevelsReq = 2;
 
         [JsonProperty]
-        int DisruptLifeMaxDice = 4;
+        int DisruptLifeMaxDice = 6;
 
         [JsonProperty]
         bool DontAddUnholyZap = false;

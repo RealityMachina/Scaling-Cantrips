@@ -8,8 +8,8 @@
   "IgnoreDivineZap": false, //if you feel like divine casters are in a better spot compared to arcane ones and don't need damage support
   "JoltingGraspLevelsReq": 2,
   "JoltingGraspMaxDice": 7, //7d3 is the max
-  "DisruptLifeLevelsReq": 3,
-  "DisruptLifeMaxDice": 4,
+  "DisruptLifeLevelsReq": 2,
+  "DisruptLifeMaxDice": 6,
   "DontAddUnholyZap":  false
 
 }

@@ -40,6 +40,7 @@ namespace ScalingCantrips
                 Main.Log("Adding Cantrip Feats");
                // CreateAddCasterStateToDamage();
                 AddCantripFeatures(); //int wis and cha
+                AddCantripPrereqs(); 
                 EditItemFeatures();
             }
             static void EditItemFeatures()
@@ -75,6 +76,39 @@ namespace ScalingCantrips
                 }
 
             }
+            static void AddCantripPrereqs()
+            {
+                var AddWisToCantripDamage = Resources.GetModBlueprint<BlueprintFeature>("RMAddWisStatToDamage");
+
+                AddWisToCantripDamage.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
+                    c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddIntStatToDamage").ToReference<BlueprintFeatureReference>();
+
+                }));
+                AddWisToCantripDamage.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
+                    c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddChaStatToDamage").ToReference<BlueprintFeatureReference>();
+
+                }));
+
+                var AddIntToCantripDamage = Resources.GetModBlueprint<BlueprintFeature>("RMAddIntStatToDamage");
+                AddIntToCantripDamage.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
+                    c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddWisStatToDamage").ToReference<BlueprintFeatureReference>();
+
+                }));
+                AddIntToCantripDamage.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
+                    c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddChaStatToDamage").ToReference<BlueprintFeatureReference>();
+
+                }));
+
+                var AddChaToCantripDamage = Resources.GetModBlueprint<BlueprintFeature>("RMAddChaStatToDamage");
+                AddChaToCantripDamage.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
+                    c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddWisStatToDamage").ToReference<BlueprintFeatureReference>();
+
+                }));
+                AddChaToCantripDamage.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
+                    c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddIntStatToDamage").ToReference<BlueprintFeatureReference>();
+
+                }));
+            }
             static void AddCantripFeatures()
             {
                 var AddWisToCantripDamage = Helpers.CreateBlueprint<BlueprintFeature>("RMAddWisStatToDamage", bp => {
@@ -89,14 +123,7 @@ namespace ScalingCantrips
                         c.statType = Kingmaker.EntitySystem.Stats.StatType.Wisdom;
                        
                     }));
-                    bp.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
-                        c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddIntStatToDamage").ToReference<BlueprintFeatureReference>();
 
-                    }));
-                    bp.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
-                        c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddChaStatToDamage").ToReference<BlueprintFeatureReference>();
-
-                    }));
 
                 });
 
@@ -112,14 +139,7 @@ namespace ScalingCantrips
                         c.statType = Kingmaker.EntitySystem.Stats.StatType.Intelligence;
 
                     }));
-                    bp.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
-                        c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddWisStatToDamage").ToReference<BlueprintFeatureReference>();
 
-                    }));
-                    bp.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
-                        c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddChaStatToDamage").ToReference<BlueprintFeatureReference>();
-
-                    }));
 
                 });
 
@@ -135,14 +155,7 @@ namespace ScalingCantrips
                         c.statType = Kingmaker.EntitySystem.Stats.StatType.Intelligence;
 
                     }));
-                    bp.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
-                        c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddWisStatToDamage").ToReference<BlueprintFeatureReference>();
 
-                    }));
-                    bp.AddComponent(Helpers.Create<PrerequisiteNoFeature>(c => {
-                        c.m_Feature = Resources.GetModBlueprint<BlueprintFeature>("RMAddIntStatToDamage").ToReference<BlueprintFeatureReference>();
-
-                    }));
 
                 });
 
