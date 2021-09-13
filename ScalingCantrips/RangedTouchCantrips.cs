@@ -197,8 +197,8 @@ namespace ScalingCantrips
                     bp.Animation = Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Directional;
                     bp.AnimationStyle = Kingmaker.View.Animation.CastAnimationStyle.CastActionDirectional;
                     bp.ActionType = Kingmaker.UnitLogic.Commands.Base.UnitCommand.CommandType.Standard;
-                    // bp.AvailableMetamagic = Metamagic.Bolstered | Metamagic.CompletelyNormal | Metamagic.Empower | Metamagic.Maximize | Metamagic.Quicken
-                    //   | Metamagic.Reach | Metamagic.Heighten;
+                     bp.AvailableMetamagic = Metamagic.Bolstered | Metamagic.CompletelyNormal | Metamagic.Empower | Metamagic.Maximize | Metamagic.Quicken
+                       | Metamagic.Reach | Metamagic.Heighten;
                     bp.MaterialComponent = new BlueprintAbility.MaterialComponentData();
                     bp.MaterialComponent.Count = 1;
                     bp.ResourceAssetIds.AddItem("10bd7db8c04041c47bfbff8a3c5b592d");
