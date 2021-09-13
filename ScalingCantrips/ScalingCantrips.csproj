@@ -117,6 +117,8 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCasterStatToDamage.cs" />
+    <Compile Include="CantripFeaturePatcher.cs" />
     <Compile Include="CantripPatcher.cs" />
     <Compile Include="Config\Blueprints.cs" />
     <Compile Include="Config\IUpdatableSettings.cs" />
