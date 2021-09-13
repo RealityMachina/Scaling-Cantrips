@@ -22,6 +22,7 @@ using Kingmaker.UnitLogic;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Designers.Mechanics.Facts;
 
 namespace ScalingCantrips
 {
@@ -39,8 +40,41 @@ namespace ScalingCantrips
                 Main.Log("Adding Cantrip Feats");
                // CreateAddCasterStateToDamage();
                 AddCantripFeatures(); //int wis and cha
+                EditItemFeatures();
             }
+            static void EditItemFeatures()
+            {
+                var NeophyteGloves = Resources.GetBlueprint<BlueprintFeature>("aa84d44512e5ef64aa92f79be5aa8734");
+                var LocketEmpower = Resources.GetBlueprint<BlueprintFeature>("08d677d6ed2c49b469e7bd1385826dc9");
+                var LocketExtended = Resources.GetBlueprint<BlueprintFeature>("3c39db1ef0e699a4a84b2f30189ec271");
+                var LocketMaximized = Resources.GetBlueprint<BlueprintFeature>("e2efab2d89e6e1a4993c81a6b098e670");
+                var LocketReach = Resources.GetBlueprint<BlueprintFeature>("9dcf0f276f741474cab1a6ad771c06a7");
 
+                var FireboltRef = Resources.GetModBlueprint<BlueprintAbility>("RMFirebolt");
+                var UnholyRef = Resources.GetModBlueprint<BlueprintAbility>("RMUnholyZapEffect");
+                var JoltingRef = Resources.GetModBlueprint<BlueprintAbility>("RMJoltingGrasp");
+                BlueprintAbility[] cantripArray = { FireboltRef, UnholyRef = JoltingRef };
+
+                foreach (var refer in cantripArray)
+                {
+                    NeophyteGloves.GetComponent<DiceDamageBonusOnSpell>()
+                        .m_Spells = NeophyteGloves.GetComponent<DiceDamageBonusOnSpell>()
+                        .m_Spells.AppendToArray(refer.ToReference<BlueprintAbilityReference>());
+
+                    LocketEmpower.GetComponent<AutoMetamagic>()
+                    .Abilities.Add(refer.ToReference<BlueprintAbilityReference>());
+
+                    LocketExtended.GetComponent<AutoMetamagic>()
+                    .Abilities.Add(refer.ToReference<BlueprintAbilityReference>());
+
+                    LocketMaximized.GetComponent<AutoMetamagic>()
+                    .Abilities.Add(refer.ToReference<BlueprintAbilityReference>());
+
+                    LocketReach.GetComponent<AutoMetamagic>()
+                    .Abilities.Add(refer.ToReference<BlueprintAbilityReference>());
+                }
+
+            }
             static void AddCantripFeatures()
             {
                 var AddWisToCantripDamage = Helpers.CreateBlueprint<BlueprintFeature>("RMAddWisStatToDamage", bp => {

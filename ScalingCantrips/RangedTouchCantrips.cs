@@ -120,7 +120,7 @@ namespace ScalingCantrips
                     bp.AddComponent(Helpers.Create<CantripComponent>());
                     bp.AddComponent(Helpers.Create<AbilityEffectRunAction>(c =>
                     {
-                        c.SavingThrowType = Kingmaker.EntitySystem.Stats.SavingThrowType.Fortitude;
+                      
                         c.Actions = new Kingmaker.ElementsSystem.ActionList()
                         {
                             Actions = new Kingmaker.ElementsSystem.GameAction[]
@@ -185,7 +185,7 @@ namespace ScalingCantrips
                     bp.SetName("Unholy Zap");
                     bp.SetDescription("You unleash unholy powers against a single target via a ranged touch attack. If successful, the target takes {g|Encyclopedia:Dice}1d6{/g} points of negative {g|Encyclopedia:Damage}damage{/g}; for every "
                         + ModSettings.Scaling.GetDisruptLifeLevelsReq() + " caster level(s), another dice is added up to a max of " + ModSettings.Scaling.GetDisruptLifeMaxDice() +
-                        "d6.");
+                        "d6. Fortitude saves if successful, halves damage.");
                     bp.m_TargetMapObjects = true;
                     bp.Range = AbilityRange.Close;
                     bp.SpellResistance = true;
@@ -258,7 +258,7 @@ namespace ScalingCantrips
                                         },
                                         Value = new ContextDiceValue()
                                         {
-                                            DiceType = Kingmaker.RuleSystem.DiceType.D3,
+                                            DiceType = Kingmaker.RuleSystem.DiceType.D6,
                                             DiceCountValue = new ContextValue()
                                             {
                                                 ValueType = ContextValueType.Rank
