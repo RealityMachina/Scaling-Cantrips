@@ -33,6 +33,7 @@ namespace ScalingCantrips
         {
             static bool Initialized;
 
+            [HarmonyPriority(Priority.LowerThanNormal)]
             static void Postfix()
             {
                 if (Initialized) return;
@@ -40,7 +41,7 @@ namespace ScalingCantrips
                 Main.Log("Adding Cantrip Feats");
                // CreateAddCasterStateToDamage();
                 AddCantripFeatures(); //int wis and cha
-                AddCantripPrereqs(); 
+                AddCantripPrereqs();
                 EditItemFeatures();
             }
             static void EditItemFeatures()
