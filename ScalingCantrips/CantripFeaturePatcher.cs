@@ -153,7 +153,7 @@ namespace ScalingCantrips
                     bp.SetDescription("Cantrips you can cast now have a damage bonus equal to your Charisma stat bonus.");
                     bp.m_DescriptionShort = bp.m_Description;
                     bp.AddComponent(Helpers.Create<AddCasterStatToDamage>(c => {
-                        c.statType = Kingmaker.EntitySystem.Stats.StatType.Intelligence;
+                        c.statType = Kingmaker.EntitySystem.Stats.StatType.Charisma;
 
                     }));
 
