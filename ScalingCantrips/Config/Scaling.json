@@ -10,6 +10,8 @@
   "JoltingGraspMaxDice": 7, //7d3 is the max
   "DisruptLifeLevelsReq": 2,
   "DisruptLifeMaxDice": 6,
-  "DontAddUnholyZap":  false
-
+  "DontAddUnholyZap": false,
+  "StartImmediately": true //default "true" means caster rank calculations assume One plus (Value) divided by (levelsreq), so with default settings: 2nd caster level at level 2 means 2d3.
+  //If set to false, it uses just(Value) divided by (levelsreq) : so 2nd caster level at level 2 would instead mean 1d3 (because 2/2 only gives you 1)
+    // the minimum is always 1 so we avoid division by zero errors
 }

@@ -96,7 +96,14 @@ namespace ScalingCantrips
                         }));
 
                         var RankConfig = Helpers.CreateContextRankConfig();
-                        RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                        if (ModSettings.Scaling.UseOnePlusDivStep())
+                        {
+                            RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                        }
+                        else
+                        {
+                            RankConfig.m_Progression = ContextRankProgression.DivStep;
+                        }
                         RankConfig.m_StepLevel = ModSettings.Scaling.GetJoltingGraspLevelsReq();
                         RankConfig.m_Min = 1; //so this should be normal at first level
                         RankConfig.m_Max = ModSettings.Scaling.GetJoltingGraspMaxDice(); // but get 4d3 at max level (though obviously

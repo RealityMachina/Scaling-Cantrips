@@ -79,8 +79,15 @@ namespace ScalingCantrips
             static void EditAndAddTempHP(BlueprintBuff buff, BlueprintAbility cantrip)
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
-              
-                RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+
+                if (ModSettings.Scaling.UseOnePlusDivStep())
+                {
+                    RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                }
+                else
+                {
+                    RankConfig.m_Progression = ContextRankProgression.DivStep;
+                }
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetVirtueCasterLevelsReq();
                 RankConfig.m_Min = 1; //so this should be normal at first level
                 RankConfig.m_Max = ModSettings.Scaling.GetVirtueMaxDice(); // but get 4d3 at max level (though obviously
@@ -113,7 +120,15 @@ namespace ScalingCantrips
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
                
-                RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                if(ModSettings.Scaling.UseOnePlusDivStep())
+                {
+                    RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                }
+                else
+                {
+                    RankConfig.m_Progression = ContextRankProgression.DivStep;
+                }
+                
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetCasterLevelsReq();
                 RankConfig.m_Min = 1; //so this should be normal at first level
                 RankConfig.m_Max = ModSettings.Scaling.GetMaxDice(); // but get 4d3 at max level (though obviously
@@ -150,9 +165,16 @@ namespace ScalingCantrips
             static void EditAndAddAbilityUndead(BlueprintAbility cantrip)
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
-                
+
                 // RankConfig.m_Type = AbilityRankType.ProjectilesCount;
-                RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                if (ModSettings.Scaling.UseOnePlusDivStep())
+                {
+                    RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                }
+                else
+                {
+                    RankConfig.m_Progression = ContextRankProgression.DivStep;
+                }
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetDisruptCasterLevelsReq();
                 RankConfig.m_Min = 1; //so this should be normal at first level
                 RankConfig.m_Max = ModSettings.Scaling.GetDisruptMaxDice(); // but get 5d6 at max level

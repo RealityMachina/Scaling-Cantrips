@@ -108,7 +108,14 @@ namespace ScalingCantrips
                         c.School = SpellSchool.Evocation;
                     }));
                     var RankConfig = Helpers.CreateContextRankConfig();
-                    RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                    if (ModSettings.Scaling.UseOnePlusDivStep())
+                    {
+                        RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                    }
+                    else
+                    {
+                        RankConfig.m_Progression = ContextRankProgression.DivStep;
+                    }
                     RankConfig.m_StepLevel = ModSettings.Scaling.GetCasterLevelsReq();
                     RankConfig.m_Min = 1; //so this should be normal at first level
                     RankConfig.m_Max = ModSettings.Scaling.GetMaxDice(); // but get 4d3 at max level (though obviously
@@ -207,7 +214,6 @@ namespace ScalingCantrips
                     bp.ResourceAssetIds.AddItem("53279164584a8df4f9b2d6c40d65673d");
                     bp.ResourceAssetIds.AddItem("76b5b5a45eef7e94ca4006486e245b68");
                     bp.ResourceAssetIds.AddItem("e197ea880ace2ca4a9f96598ca96f81e");
-
                     bp.AddComponent(Helpers.Create<AbilityDeliverProjectile>(c =>
                     {
                         c.m_Projectiles = new BlueprintProjectileReference[]
@@ -224,7 +230,14 @@ namespace ScalingCantrips
                     }));
 
                     var RankConfig = Helpers.CreateContextRankConfig();
-                    RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                    if (ModSettings.Scaling.UseOnePlusDivStep())
+                    {
+                        RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
+                    }
+                    else
+                    {
+                        RankConfig.m_Progression = ContextRankProgression.DivStep;
+                    }
                     RankConfig.m_StepLevel = ModSettings.Scaling.GetDisruptLifeLevelsReq();
                     RankConfig.m_Min = 1; //so this should be normal at first level
                     RankConfig.m_Max = ModSettings.Scaling.GetDisruptLifeMaxDice(); // but get 4d3 at max level (though obviously

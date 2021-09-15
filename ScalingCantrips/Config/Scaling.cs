@@ -46,6 +46,8 @@ namespace ScalingCantrips.Config
         [JsonProperty]
         bool DontAddUnholyZap = false;
 
+        [JsonProperty]
+        bool StartImmediately = true;
         public void OverrideSettings(IUpdatableSettings userSettings)
         {
             var loadedSettings = userSettings as Scaling;
@@ -64,8 +66,13 @@ namespace ScalingCantrips.Config
             DisruptLifeLevelsReq = Math.Max(loadedSettings.DisruptLifeLevelsReq, 1);
             DisruptLifeMaxDice = Math.Max(loadedSettings.DisruptLifeMaxDice, 1);
             DontAddUnholyZap = loadedSettings.DontAddUnholyZap;
+            StartImmediately = loadedSettings.StartImmediately;
         }
 
+        public bool UseOnePlusDivStep()
+        {
+            return StartImmediately;
+        }
         public bool UnholyZapUnavailable()
         {
             return DontAddUnholyZap;
