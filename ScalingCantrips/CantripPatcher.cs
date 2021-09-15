@@ -87,7 +87,7 @@ namespace ScalingCantrips
                 else
                 {
                     RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
-                    RankConfig.m_StartLevel = 2;
+                    RankConfig.m_StartLevel = 1;
                 }
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetVirtueCasterLevelsReq();
                 RankConfig.m_Min = 1; //so this should be normal at first level
@@ -128,7 +128,7 @@ namespace ScalingCantrips
                 else
                 {
                     RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
-                    RankConfig.m_StartLevel = 2;
+                    RankConfig.m_StartLevel = 1;
                 }
 
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetCasterLevelsReq();
@@ -176,7 +176,7 @@ namespace ScalingCantrips
                 else
                 {
                     RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
-                    RankConfig.m_StartLevel = 2;
+                    RankConfig.m_StartLevel = 1;
                 }
                 RankConfig.m_StepLevel = ModSettings.Scaling.GetDisruptCasterLevelsReq();
                 RankConfig.m_Min = 1; //so this should be normal at first level

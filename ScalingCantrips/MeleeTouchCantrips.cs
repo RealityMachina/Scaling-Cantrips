@@ -103,7 +103,7 @@ namespace ScalingCantrips
                         else
                         {
                             RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
-                            RankConfig.m_StartLevel = 2;
+                            RankConfig.m_StartLevel = 1;
                         }
                         RankConfig.m_StepLevel = ModSettings.Scaling.GetJoltingGraspLevelsReq();
                         RankConfig.m_Min = 1; //so this should be normal at first level
