@@ -11,7 +11,8 @@
   "DisruptLifeLevelsReq": 2,
   "DisruptLifeMaxDice": 6,
   "DontAddUnholyZap": false,
-  "StartImmediately": true //default "true" means caster rank calculations assume One plus (Value) divided by (levelsreq), so with default settings: 2nd caster level at level 2 means 2d3.
-  //If set to false, it uses just(Value) divided by (levelsreq) : so 2nd caster level at level 2 would instead mean 1d3 (because 2/2 only gives you 1)
-    // the minimum is always 1 so we avoid division by zero errors
+  "StartImmediately": true //default "true" means caster rank calculations assume One plus (caster level ) divided by (levelsreq), so with default settings: 2nd caster level at level 2 means 2d3.
+  //If set to false, it uses Start plus Div Step, whose formula is 1 +( (caster level - start level) / levels req ). Start levels for cantrips are set to be level 2.
+    // so still with default settings, it takes until level 3 before we get 2d3, since then the formula is 1 + ((3 - 2) / 2), which gives us two instead of one. (The game puts in a zero if the latter side of the formula goes into the negatives)
+  
 }
