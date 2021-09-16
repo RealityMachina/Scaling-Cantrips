@@ -50,7 +50,7 @@ namespace ScalingCantrips
             {
                 return;
             }
-
+            
         }
 
 
