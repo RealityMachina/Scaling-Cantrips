@@ -12,39 +12,39 @@ namespace ScalingCantrips
 
 
 
-        int CasterLevelsReq = 2;
+        public int CasterLevelsReq = 2;
 
-        int MaxDice = 6;
-
-
-        int DisruptCasterLevelsReq = 3;
+        public int MaxDice = 6;
 
 
-        int DisruptMaxDice = 4;
-
-     int VirtueCasterLevelsReq = 2;
-
-        int VirtueMaxDice = 10;
+        public int DisruptCasterLevelsReq = 3;
 
 
-        bool IgnoreDivineZap = false;
+        public  int DisruptMaxDice = 4;
+
+        public int VirtueCasterLevelsReq = 2;
+
+        public  int VirtueMaxDice = 10;
 
 
-        int JoltingGraspLevelsReq = 2;
+        public bool IgnoreDivineZap = false;
 
 
-        int JoltingGraspMaxDice = 7;
+        public int JoltingGraspLevelsReq = 2;
 
 
-        int DisruptLifeLevelsReq = 2;
+        public int JoltingGraspMaxDice = 7;
 
 
-        int DisruptLifeMaxDice = 6;
-
-        bool DontAddUnholyZap = false;
+        public int DisruptLifeLevelsReq = 2;
 
 
-        bool StartImmediately = true;
+        public int DisruptLifeMaxDice = 6;
+
+        public  bool DontAddUnholyZap = false;
+
+
+        public bool StartImmediately = true;
     }
 
 }
