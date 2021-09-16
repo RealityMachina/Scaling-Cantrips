@@ -29,7 +29,6 @@ namespace ScalingCantrips
                         if (HighestCasterLevel < spellbook.CasterLevel && !spellbook.IsMythic)
                         {
                             HighestCasterLevel = spellbook.CasterLevel;
-                            break;
                        }
                     
                 
