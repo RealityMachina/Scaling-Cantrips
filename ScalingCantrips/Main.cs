@@ -57,6 +57,7 @@ namespace ScalingCantrips
                 GUILayout.ExpandWidth(true),
                 GUILayout.MaxWidth(1000)
             };
+            GUILayout.Label("FOR BEST EFFECT: restart the game after changing these settings.", options);
             GUILayout.Label("Cantrips Caster Levels Required", options);
             GUILayout.Label(Main.settings.CasterLevelsReq.ToString(), options);
             Main.settings.CasterLevelsReq = (int)GUILayout.HorizontalSlider(Main.settings.CasterLevelsReq, 1, 20, options);

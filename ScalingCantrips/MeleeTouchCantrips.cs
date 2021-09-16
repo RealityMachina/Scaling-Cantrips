@@ -58,9 +58,9 @@ namespace ScalingCantrips
 
                         bp.m_Icon = ShockingGrasp.m_Icon;
                         bp.SetName("Jolting Grasp");
-                        bp.SetDescription("Your successful melee {g|Encyclopedia:TouchAttack}touch attack{/g} deals {g|Encyclopedia:Dice}1d3{/g} points of {g|Encyclopedia:Energy_Damage}electricity damage{/g} per " + ModSettings.Scaling.GetJoltingGraspLevelsReq() +
-                            " {g|Encyclopedia:Caster_Level}caster level(s){/g} (maximum " + ModSettings.Scaling.GetJoltingGraspMaxDice() + "d6)" +
-                            " When delivering the jolt, you gain a +3 {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack rolls{/g} if the opponent is wearing metal armor (or is carrying a metal weapon or is made of metal).");
+                        bp.SetDescription("Your successful melee {g|Encyclopedia:TouchAttack}touch attack{/g} deals {g|Encyclopedia:Dice}1d3{/g} points of {g|Encyclopedia:Energy_Damage}electricity damage{/g} per "
+                            + Main.settings.JoltingGraspLevelsReq + " {g|Encyclopedia:Caster_Level}caster level(s){/g} (maximum " + Main.settings.JoltingGraspMaxDice + 
+                            "d6)" + " When delivering the jolt, you gain a +3 {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack rolls{/g} if the opponent is wearing metal armor (or is carrying a metal weapon or is made of metal).");
                         bp.SpellResistance = true;
                         bp.CanTargetEnemies = true;
                         bp.CanTargetSelf = true;
@@ -96,7 +96,7 @@ namespace ScalingCantrips
                         }));
 
                         var RankConfig = Helpers.CreateContextRankConfig();
-                        if (ModSettings.Scaling.UseOnePlusDivStep())
+                        if (Main.settings.StartImmediately)
                         {
                             RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                         }
@@ -105,9 +105,9 @@ namespace ScalingCantrips
                             RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
                             RankConfig.m_StartLevel = 1;
                         }
-                        RankConfig.m_StepLevel = ModSettings.Scaling.GetJoltingGraspLevelsReq();
+                        RankConfig.m_StepLevel = Main.settings.JoltingGraspLevelsReq;
                         RankConfig.m_Min = 1; //so this should be normal at first level
-                        RankConfig.m_Max = ModSettings.Scaling.GetJoltingGraspMaxDice(); // but get 4d3 at max level (though obviously
+                        RankConfig.m_Max = Main.settings.JoltingGraspMaxDice; // but get 4d3 at max level (though obviously
                         RankConfig.m_UseMax = true;
                         RankConfig.m_UseMin = true;
                         RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
@@ -159,8 +159,8 @@ namespace ScalingCantrips
                 {
                     bp.m_Icon = ShockingGrasp.m_Icon;
                     bp.SetName("Jolting Grasp");
-                    bp.SetDescription("Your successful melee {g|Encyclopedia:TouchAttack}touch attack{/g} deals {g|Encyclopedia:Dice}1d3{/g} points of {g|Encyclopedia:Energy_Damage}electricity damage{/g} per " + ModSettings.Scaling.GetJoltingGraspLevelsReq() +
-                        " {g|Encyclopedia:Caster_Level}caster level(s){/g} (maximum " + ModSettings.Scaling.GetJoltingGraspMaxDice() + "d6)" +
+                    bp.SetDescription("Your successful melee {g|Encyclopedia:TouchAttack}touch attack{/g} deals {g|Encyclopedia:Dice}1d3{/g} points of {g|Encyclopedia:Energy_Damage}electricity damage{/g} per " + Main.settings.JoltingGraspLevelsReq +
+                        " {g|Encyclopedia:Caster_Level}caster level(s){/g} (maximum " + Main.settings.JoltingGraspMaxDice + "d6)" +
                         " When delivering the jolt, you gain a +3 {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack rolls{/g} if the opponent is wearing metal armor (or is carrying a metal weapon or is made of metal).");
                     bp.SpellResistance = true;
                     bp.CanTargetEnemies = true;

@@ -68,7 +68,7 @@ namespace ScalingCantrips
                 EditAndAddAbility(RayOfFrost);
                 EditAndAddAbility(Jolt);
 
-                if(!ModSettings.Scaling.GetIgnoreDivineZap())
+                if(!Main.settings.IgnoreDivineZap)
                     EditAndAddAbility(DivineZap);
 
                 EditAndAddAbilityUndead(DisruptUndead);
@@ -80,7 +80,7 @@ namespace ScalingCantrips
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
 
-                if (ModSettings.Scaling.UseOnePlusDivStep())
+                if (Main.settings.StartImmediately)
                 {
                     RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                 }
@@ -89,9 +89,9 @@ namespace ScalingCantrips
                     RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
                     RankConfig.m_StartLevel = 1;
                 }
-                RankConfig.m_StepLevel = ModSettings.Scaling.GetVirtueCasterLevelsReq();
+                RankConfig.m_StepLevel = Main.settings.VirtueCasterLevelsReq;
                 RankConfig.m_Min = 1; //so this should be normal at first level
-                RankConfig.m_Max = ModSettings.Scaling.GetVirtueMaxDice(); // but get 4d3 at max level (though obviously
+                RankConfig.m_Max = Main.settings.VirtueMaxDice; // but get 4d3 at max level (though obviously
                 RankConfig.m_UseMax = true;
                 RankConfig.m_UseMin = true;
                 RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
@@ -111,8 +111,8 @@ namespace ScalingCantrips
 
                 var newString = buff.Description;
 
-                newString += "For every " + ModSettings.Scaling.GetVirtueCasterLevelsReq()  + " caster level(s) the caster has, Virtue will grant another point of temporary HP, up to "
-                    + ModSettings.Scaling.GetVirtueMaxDice() + " points total.";
+                newString += "For every " + Main.settings.VirtueCasterLevelsReq + " caster level(s) the caster has, Virtue will grant another point of temporary HP, up to "
+                    + Main.settings.VirtueMaxDice + " points total.";
                 buff.SetDescription(newString);
                 cantrip.SetDescription(newString);
             }
@@ -121,7 +121,7 @@ namespace ScalingCantrips
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
                
-                if(ModSettings.Scaling.UseOnePlusDivStep())
+                if(Main.settings.StartImmediately)
                 {
                     RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                 }
@@ -131,9 +131,9 @@ namespace ScalingCantrips
                     RankConfig.m_StartLevel = 1;
                 }
 
-                RankConfig.m_StepLevel = ModSettings.Scaling.GetCasterLevelsReq();
+                RankConfig.m_StepLevel = Main.settings.CasterLevelsReq;
                 RankConfig.m_Min = 1; //so this should be normal at first level
-                RankConfig.m_Max = ModSettings.Scaling.GetMaxDice(); // but get 4d3 at max level (though obviously
+                RankConfig.m_Max = Main.settings.MaxDice; // but get 4d3 at max level (though obviously
                 RankConfig.m_UseMax = true;
                 RankConfig.m_UseMin = true;
                 RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
@@ -156,7 +156,7 @@ namespace ScalingCantrips
                 }
                 var newString = cantrip.Description;
 
-                newString += " Damage dice is increased by 1 every " + ModSettings.Scaling.GetCasterLevelsReq() +  " caster level(s), up to a maximum of " + ModSettings.Scaling.GetMaxDice() + "d3.";
+                newString += " Damage dice is increased by 1 every " + Main.settings.CasterLevelsReq +  " caster level(s), up to a maximum of " + Main.settings.MaxDice + "d3.";
                 cantrip.SetDescription(newString);
 
               //  Main.Log("Patched " + cantrip.m_DisplayName + " to have this rankconfig: \n " + RankConfig.ToString());
@@ -169,7 +169,7 @@ namespace ScalingCantrips
                 var RankConfig = Helpers.CreateContextRankConfig();
 
                 // RankConfig.m_Type = AbilityRankType.ProjectilesCount;
-                if (ModSettings.Scaling.UseOnePlusDivStep())
+                if (Main.settings.StartImmediately)
                 {
                     RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                 }
@@ -178,9 +178,9 @@ namespace ScalingCantrips
                     RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
                     RankConfig.m_StartLevel = 1;
                 }
-                RankConfig.m_StepLevel = ModSettings.Scaling.GetDisruptCasterLevelsReq();
+                RankConfig.m_StepLevel = Main.settings.DisruptCasterLevelsReq;
                 RankConfig.m_Min = 1; //so this should be normal at first level
-                RankConfig.m_Max = ModSettings.Scaling.GetDisruptMaxDice(); // but get 5d6 at max level
+                RankConfig.m_Max = Main.settings.DisruptMaxDice; // but get 5d6 at max level
                 RankConfig.m_UseMax = true;
                 RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
                 RankConfig.m_CustomProperty = CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
@@ -202,8 +202,8 @@ namespace ScalingCantrips
                 }
                 var newString = cantrip.Description;
 
-                newString += " Damage dice is increased by 1 at every " + ModSettings.Scaling.GetDisruptCasterLevelsReq()  + " caster level(s), up to a maximum of + " 
-                    + ModSettings.Scaling.GetDisruptMaxDice() + "d6.";
+                newString += " Damage dice is increased by 1 at every " + Main.settings.DisruptCasterLevelsReq + " caster level(s), up to a maximum of + " 
+                    + Main.settings.DisruptMaxDice + "d6.";
                 cantrip.SetDescription(newString);
             }
         }

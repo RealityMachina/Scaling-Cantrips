@@ -46,7 +46,7 @@ namespace ScalingCantrips
                 if (Initialized) return;
                 Initialized = true;
                 Main.Log("Adding New Ranged Cantrips");
-                if(!ModSettings.Scaling.UnholyZapUnavailable())
+                if(!Main.settings.DontAddUnholyZap)
                 {
                     AddUnholyZap();
                 }             
@@ -65,7 +65,7 @@ namespace ScalingCantrips
                     bp.m_Icon = SickeningRay.m_Icon;
                     bp.SetName("Firebolt");
                     bp.SetDescription("You unleash a bolt of fire via a ranged touch attack. If successful, the target takes {g|Encyclopedia:Dice}1d3{/g} points of fire {g|Encyclopedia:Damage}damage{/g}; for every "
-                        + ModSettings.Scaling.GetCasterLevelsReq() + " caster level(s), another dice is added up to a max of " + ModSettings.Scaling.GetMaxDice() +
+                        + Main.settings.CasterLevelsReq + " caster level(s), another dice is added up to a max of " + Main.settings.MaxDice +
                         "d3.");
                     bp.m_TargetMapObjects = true;
                     bp.Range = AbilityRange.Close;
@@ -108,7 +108,7 @@ namespace ScalingCantrips
                         c.School = SpellSchool.Evocation;
                     }));
                     var RankConfig = Helpers.CreateContextRankConfig();
-                    if (ModSettings.Scaling.UseOnePlusDivStep())
+                    if (Main.settings.StartImmediately)
                     {
                         RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                     }
@@ -117,9 +117,9 @@ namespace ScalingCantrips
                         RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
                         RankConfig.m_StartLevel = 1;
                     }
-                    RankConfig.m_StepLevel = ModSettings.Scaling.GetCasterLevelsReq();
+                    RankConfig.m_StepLevel = Main.settings.CasterLevelsReq;
                     RankConfig.m_Min = 1; //so this should be normal at first level
-                    RankConfig.m_Max = ModSettings.Scaling.GetMaxDice(); // but get 4d3 at max level (though obviously
+                    RankConfig.m_Max = Main.settings.MaxDice; // but get 4d3 at max level (though obviously
                     RankConfig.m_UseMax = true;
                     RankConfig.m_UseMin = true;
                     RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
@@ -192,7 +192,7 @@ namespace ScalingCantrips
                     bp.m_Icon = SickeningRay.m_Icon;
                     bp.SetName("Unholy Zap");
                     bp.SetDescription("You unleash unholy powers against a single target via a ranged touch attack. If successful, the target takes {g|Encyclopedia:Dice}1d3{/g} points of negative {g|Encyclopedia:Damage}damage{/g}; for every "
-                        + ModSettings.Scaling.GetDisruptLifeLevelsReq() + " caster level(s), another dice is added up to a max of " + ModSettings.Scaling.GetDisruptLifeMaxDice() +
+                        + Main.settings.DisruptLifeLevelsReq + " caster level(s), another dice is added up to a max of " + Main.settings.DisruptLifeMaxDice +
                         "d3. Fortitude saves if successful, halves damage.");
                     bp.m_TargetMapObjects = true;
                     bp.Range = AbilityRange.Close;
@@ -231,7 +231,7 @@ namespace ScalingCantrips
                     }));
 
                     var RankConfig = Helpers.CreateContextRankConfig();
-                    if (ModSettings.Scaling.UseOnePlusDivStep())
+                    if (Main.settings.StartImmediately)
                     {
                         RankConfig.m_Progression = ContextRankProgression.OnePlusDivStep;
                     }
@@ -240,9 +240,9 @@ namespace ScalingCantrips
                         RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
                         RankConfig.m_StartLevel = 1;
                     }
-                    RankConfig.m_StepLevel = ModSettings.Scaling.GetDisruptLifeLevelsReq();
+                    RankConfig.m_StepLevel = Main.settings.DisruptLifeLevelsReq;
                     RankConfig.m_Min = 1; //so this should be normal at first level
-                    RankConfig.m_Max = ModSettings.Scaling.GetDisruptLifeMaxDice(); // but get 4d3 at max level (though obviously
+                    RankConfig.m_Max = Main.settings.DisruptLifeMaxDice; // but get 4d3 at max level (though obviously
                     RankConfig.m_UseMax = true;
                     RankConfig.m_UseMin = true;
                     RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
