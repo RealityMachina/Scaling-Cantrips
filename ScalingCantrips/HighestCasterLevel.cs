@@ -26,10 +26,10 @@ namespace ScalingCantrips
             int HighestCasterLevel = 0;
             foreach (Spellbook spellbook in unit.Descriptor.Spellbooks)
             {
-                        if (HighestCasterLevel < spellbook.CasterLevel && !spellbook.IsMythic)
+                        if (HighestCasterLevel < spellbook.CasterLevel)
                         {
                             HighestCasterLevel = spellbook.CasterLevel;
-                       }
+                        }
                     
                 
 

@@ -9,9 +9,7 @@ namespace ScalingCantrips
         {
             UnityModManager.ModSettings.Save<Settings>(this, modEntry);
         }
-
-
-        public bool NoSizeLimits;
+       
     }
 
 }
