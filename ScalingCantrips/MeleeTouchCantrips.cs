@@ -168,6 +168,7 @@ namespace ScalingCantrips
                     bp.ActionBarAutoFillIgnored = false;
                     bp.LocalizedDuration = ShockingGrasp.LocalizedDuration;
                     bp.LocalizedSavingThrow = ShockingGrasp.LocalizedSavingThrow;
+                    bp.Type = AbilityType.Spell;
                     bp.EffectOnEnemy = AbilityEffectOnUnit.Harmful;
                     bp.Animation = Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Touch;
                     bp.AnimationStyle = Kingmaker.View.Animation.CastAnimationStyle.CastActionTouch;

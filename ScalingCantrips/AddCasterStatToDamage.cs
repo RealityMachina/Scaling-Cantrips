@@ -66,7 +66,7 @@ namespace ScalingCantrips
         
         public StatType statType;
 
-        public bool SpellsOnly = true;
+        public bool SpellsOnly = false;
 
         // Token: 0x04007BFF RID: 31743
         public bool UseContextBonus;
