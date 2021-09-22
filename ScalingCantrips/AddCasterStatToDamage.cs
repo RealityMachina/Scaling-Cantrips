@@ -54,7 +54,10 @@ namespace ScalingCantrips
             foreach (BaseDamage baseDamage in evt.DamageBundle)
             {
                 int bonus = CasterStat.Bonus;
-                baseDamage.AddModifier(bonus, base.Fact);
+                if (!baseDamage.Sneak)
+                {
+                    baseDamage.AddModifier(bonus, base.Fact);
+                }
             }
         }
 
