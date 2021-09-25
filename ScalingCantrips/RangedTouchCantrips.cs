@@ -171,6 +171,7 @@ namespace ScalingCantrips
 
                 );
                 AddSpellToArcaneCantrips(UnholyZap);
+                AddSpellToThasEvocation(UnholyZap);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.WizardSpellList, 0);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.MagusSpellList, 0);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.InquisitorSpellList, 0);
@@ -326,6 +327,17 @@ namespace ScalingCantrips
                     cantrip.GetComponent<LearnSpells>().m_Spells = cantrip.GetComponent<LearnSpells>().m_Spells.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
                     cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites = cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
                 }
+            }
+
+            static void AddSpellToThasEvocation(BlueprintAbility bp) //this works weirdly and needs to be done for firebolt
+            {
+                var WizardCantrips = Resources.GetBlueprint<BlueprintFeature>("5e33543285d1c3d49b55282cf466bef3"); //thassiloionan evocaiton
+
+
+                WizardCantrips.GetComponent<AddFacts>().m_Facts = WizardCantrips.GetComponent<AddFacts>().m_Facts.AppendToArray(bp.ToReference<BlueprintUnitFactReference>());
+                WizardCantrips.GetComponent<LearnSpells>().m_Spells = WizardCantrips.GetComponent<LearnSpells>().m_Spells.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
+                WizardCantrips.GetComponent<BindAbilitiesToClass>().m_Abilites = WizardCantrips.GetComponent<BindAbilitiesToClass>().m_Abilites.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
+
             }
             static void AddSpellToDivineCantripFeatures(BlueprintAbility bp)
             {
