@@ -23,6 +23,7 @@ using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.Designers.Mechanics.Recommendations;
 
 namespace ScalingCantrips
 {
@@ -124,7 +125,10 @@ namespace ScalingCantrips
                         c.statType = Kingmaker.EntitySystem.Stats.StatType.Wisdom;
                        
                     }));
-
+                    bp.AddComponent(Helpers.Create<RecommendationRequiresSpellbook>());
+                    bp.AddComponent(Helpers.Create<FeatureTagsComponent>(c => {
+                        c.FeatureTags = FeatureTag.Magic;
+                    }));
 
                 });
 
@@ -140,7 +144,10 @@ namespace ScalingCantrips
                         c.statType = Kingmaker.EntitySystem.Stats.StatType.Intelligence;
 
                     }));
-
+                    bp.AddComponent(Helpers.Create<RecommendationRequiresSpellbook>());
+                    bp.AddComponent(Helpers.Create<FeatureTagsComponent>(c => {
+                        c.FeatureTags = FeatureTag.Magic;
+                    }));
 
                 });
 
@@ -156,7 +163,10 @@ namespace ScalingCantrips
                         c.statType = Kingmaker.EntitySystem.Stats.StatType.Charisma;
 
                     }));
-
+                    bp.AddComponent(Helpers.Create<RecommendationRequiresSpellbook>());
+                    bp.AddComponent(Helpers.Create<FeatureTagsComponent>(c => {
+                        c.FeatureTags = FeatureTag.Magic;
+                    }));
 
                 });
 
