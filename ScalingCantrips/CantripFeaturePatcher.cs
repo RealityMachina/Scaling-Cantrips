@@ -187,7 +187,7 @@ namespace ScalingCantrips
                 var MagusFeat = Resources.GetBlueprint<BlueprintFeatureSelection>("66befe7b24c42dd458952e3c47c93563");
                 var SeekerFeat = Resources.GetBlueprint<BlueprintFeatureSelection>("c6b609279cc3174478624182ac1ad812");
                 var SkaldFeat = Resources.GetBlueprint<BlueprintFeatureSelection>("0a1999535b4f77b4d89f689a385e5ec9");
-                var WizardFeat = Resources.GetBlueprint<BlueprintFeatureSelection>("8e627812dc034b9db12fa396fdc9ec75");
+                var WizardFeat = Resources.GetBlueprint<BlueprintFeatureSelection>("8c3102c2ff3b69444b139a98521a4899");
 
 
                 AddtoSelection(feat, ArcaneRiderFeat);
