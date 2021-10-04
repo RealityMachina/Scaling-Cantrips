@@ -71,7 +71,7 @@ namespace ScalingCantrips
                     bp.Range = AbilityRange.Close;
                     bp.SpellResistance = true;
                     bp.CanTargetEnemies = true;
-                    bp.CanTargetSelf = true;
+                    bp.CanTargetSelf = false;
                     bp.LocalizedDuration = Main.MakeLocalizedString("RM_FB_DR", "");
                     bp.LocalizedSavingThrow = Main.MakeLocalizedString("RM_FB_ST", "");
                     bp.EffectOnEnemy = AbilityEffectOnUnit.Harmful;
@@ -170,14 +170,15 @@ namespace ScalingCantrips
                 }
 
                 );
-                AddSpellToArcaneCantrips(UnholyZap);
-                AddSpellToThasEvocation(UnholyZap);
+
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.WizardSpellList, 0);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.MagusSpellList, 0);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.InquisitorSpellList, 0);
+                AddSpellToArcaneCantrips(UnholyZap);
+                AddSpellToThasEvocation(UnholyZap);
                 //SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.FeyspeakerSpelllist, 0);
                 //SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList., 0);
-               // SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.ShamanSpelllist, 0);
+                // SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.ShamanSpelllist, 0);
                 //SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.WarpriestSpelllist, 0);
             }
 
@@ -199,7 +200,7 @@ namespace ScalingCantrips
                     bp.Range = AbilityRange.Close;
                     bp.SpellResistance = false;
                     bp.CanTargetEnemies = true;
-                    bp.CanTargetSelf = true;
+                    bp.CanTargetSelf = false;
                     bp.LocalizedDuration = DivineZap.LocalizedDuration;
                     bp.LocalizedSavingThrow = DivineZap.LocalizedSavingThrow;
                     bp.EffectOnEnemy = AbilityEffectOnUnit.Harmful;
@@ -294,7 +295,7 @@ namespace ScalingCantrips
                 }
                  
                 );
-                AddSpellToDivineCantripFeatures(UnholyZap);
+
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.WitchSpellList, 0);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.ClericSpellList, 0);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.DruidSpellList, 0);
@@ -302,6 +303,7 @@ namespace ScalingCantrips
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.InquisitorSpellList, 0);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.ShamanSpelllist, 0);
                 SpellTools.AddToSpellList(UnholyZap, SpellTools.SpellList.WarpriestSpelllist, 0);
+                AddSpellToDivineCantripFeatures(UnholyZap);
             }
 
             static void AddSpellToArcaneCantrips(BlueprintAbility bp)
@@ -322,16 +324,17 @@ namespace ScalingCantrips
 
                 foreach (var cantrip in CantripsList)
                 {
-
+                    cantrip.ReapplyOnLevelUp = true;
                     cantrip.GetComponent<AddFacts>().m_Facts = cantrip.GetComponent<AddFacts>().m_Facts.AppendToArray(bp.ToReference<BlueprintUnitFactReference>());
                     cantrip.GetComponent<LearnSpells>().m_Spells = cantrip.GetComponent<LearnSpells>().m_Spells.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
                     cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites = cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
                 }
+               
             }
 
             static void AddSpellToThasEvocation(BlueprintAbility bp) //this works weirdly and needs to be done for firebolt
             {
-                var WizardCantrips = Resources.GetBlueprint<BlueprintFeature>("5e33543285d1c3d49b55282cf466bef3"); //thassiloionan evocaiton
+                var WizardCantrips = Resources.GetBlueprint<BlueprintFeatureReplaceSpellbook>("5e33543285d1c3d49b55282cf466bef3"); //thassiloionan evocaiton
 
 
                 WizardCantrips.GetComponent<AddFacts>().m_Facts = WizardCantrips.GetComponent<AddFacts>().m_Facts.AppendToArray(bp.ToReference<BlueprintUnitFactReference>());
@@ -357,7 +360,7 @@ namespace ScalingCantrips
                
                 foreach (var cantrip in CantripsList)
                 {
-
+                    cantrip.ReapplyOnLevelUp = true;
                     cantrip.GetComponent<AddFacts>().m_Facts = cantrip.GetComponent<AddFacts>().m_Facts.AppendToArray(bp.ToReference<BlueprintUnitFactReference>());
                     if (cantrip.GetComponent<LearnSpells>() != null)
                     {

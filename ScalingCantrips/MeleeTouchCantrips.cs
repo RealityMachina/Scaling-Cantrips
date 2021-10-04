@@ -63,7 +63,7 @@ namespace ScalingCantrips
                             "d6)" + " When delivering the jolt, you gain a +3 {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack rolls{/g} if the opponent is wearing metal armor (or is carrying a metal weapon or is made of metal).");
                         bp.SpellResistance = true;
                         bp.CanTargetEnemies = true;
-                        bp.CanTargetSelf = true;
+                        bp.CanTargetSelf = false;
                         bp.LocalizedDuration = ShockingGrasp.LocalizedDuration;
                         bp.LocalizedSavingThrow = ShockingGrasp.LocalizedSavingThrow;
                         bp.EffectOnEnemy = AbilityEffectOnUnit.Harmful;
@@ -164,7 +164,7 @@ namespace ScalingCantrips
                         " When delivering the jolt, you gain a +3 {g|Encyclopedia:Bonus}bonus{/g} on {g|Encyclopedia:Attack}attack rolls{/g} if the opponent is wearing metal armor (or is carrying a metal weapon or is made of metal).");
                     bp.SpellResistance = true;
                     bp.CanTargetEnemies = true;
-                    bp.CanTargetSelf = true;
+                    bp.CanTargetSelf = false;
                     bp.ActionBarAutoFillIgnored = false;
                     bp.LocalizedDuration = ShockingGrasp.LocalizedDuration;
                     bp.LocalizedSavingThrow = ShockingGrasp.LocalizedSavingThrow;
@@ -208,9 +208,10 @@ namespace ScalingCantrips
                     {
                         c.m_SpellList = SpellTools.SpellList.BloodragerSpellList.ToReference<BlueprintSpellListReference>();
                     }));
-                    AddSpellToCantripFeatures(bp);
+
                     SpellTools.AddToSpellList(bp, SpellTools.SpellList.MagusSpellList, 0);               
                     SpellTools.AddToSpellList(bp, SpellTools.SpellList.BloodragerSpellList, 0);
+                    AddSpellToCantripFeatures(bp);
                 });
   
 
@@ -230,6 +231,7 @@ namespace ScalingCantrips
                 foreach (var cantrip in CantripsList)
                 {
 
+                    cantrip.ReapplyOnLevelUp = true;
                    cantrip.GetComponent<AddFacts>().m_Facts =  cantrip.GetComponent<AddFacts>().m_Facts.AppendToArray(bp.ToReference<BlueprintUnitFactReference>());
                    cantrip.GetComponent<LearnSpells>().m_Spells = cantrip.GetComponent<LearnSpells>().m_Spells.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
                    cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites = cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
