@@ -335,11 +335,22 @@ namespace ScalingCantrips
             static void AddSpellToThasEvocation(BlueprintAbility bp) //this works weirdly and needs to be done for firebolt
             {
                 var WizardCantrips = Resources.GetBlueprint<BlueprintFeatureReplaceSpellbook>("5e33543285d1c3d49b55282cf466bef3"); //thassiloionan evocaiton
+                var TransCantrips = Resources.GetBlueprint<BlueprintFeatureReplaceSpellbook>("dd163630abbdace4e85284c55d269867"); //thassiloionan transmutation
+                var NecroCantrips = Resources.GetBlueprint<BlueprintFeatureReplaceSpellbook>("fb343ede45ca1a84496c91c190a847ff"); //thassiloionan necromancy
+                var IllusCantrips = Resources.GetBlueprint<BlueprintFeatureReplaceSpellbook>("aa271e69902044b47a8e62c4e58a9dcb"); //thassiloionan illusion
+                var EnchantCantrips = Resources.GetBlueprint<BlueprintFeatureReplaceSpellbook>("e1ebc61a71c55054991863a5f6f6d2c2"); //thassiloionan enchantment
 
 
-                WizardCantrips.GetComponent<AddFacts>().m_Facts = WizardCantrips.GetComponent<AddFacts>().m_Facts.AppendToArray(bp.ToReference<BlueprintUnitFactReference>());
-                WizardCantrips.GetComponent<LearnSpells>().m_Spells = WizardCantrips.GetComponent<LearnSpells>().m_Spells.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
-                WizardCantrips.GetComponent<BindAbilitiesToClass>().m_Abilites = WizardCantrips.GetComponent<BindAbilitiesToClass>().m_Abilites.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
+                var CantripsList = new BlueprintFeature[] { IllusCantrips, TransCantrips, NecroCantrips
+                , WizardCantrips, EnchantCantrips};
+
+                foreach (var cantrip in CantripsList)
+                {
+                    cantrip.ReapplyOnLevelUp = true;
+                    cantrip.GetComponent<AddFacts>().m_Facts = cantrip.GetComponent<AddFacts>().m_Facts.AppendToArray(bp.ToReference<BlueprintUnitFactReference>());
+                    cantrip.GetComponent<LearnSpells>().m_Spells = cantrip.GetComponent<LearnSpells>().m_Spells.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
+                    cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites = cantrip.GetComponent<BindAbilitiesToClass>().m_Abilites.AppendToArray(bp.ToReference<BlueprintAbilityReference>());
+                }
 
             }
             static void AddSpellToDivineCantripFeatures(BlueprintAbility bp)
