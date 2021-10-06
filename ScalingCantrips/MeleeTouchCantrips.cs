@@ -113,7 +113,7 @@ namespace ScalingCantrips
                         RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
                         RankConfig.m_CustomProperty = CantripPatcher.BlueprintPatcher.CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
                         bp.AddComponent(RankConfig);
-
+                        bp.AddComponent(Helpers.Create<CantripComponent>());
                         bp.AddComponent(Helpers.Create<AbilityEffectRunAction>(c =>
                         {
                             c.Actions = new Kingmaker.ElementsSystem.ActionList()
