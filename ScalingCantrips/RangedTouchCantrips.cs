@@ -72,8 +72,8 @@ namespace ScalingCantrips
                     bp.SpellResistance = true;
                     bp.CanTargetEnemies = true;
                     bp.CanTargetSelf = false;
-                    bp.LocalizedDuration = Main.MakeLocalizedString("RM_FB_DR", "");
-                    bp.LocalizedSavingThrow = Main.MakeLocalizedString("RM_FB_ST", "");
+                    bp.LocalizedDuration = Helpers.CreateString("RM_FB_DR", "");
+                    bp.LocalizedSavingThrow = Helpers.CreateString("RM_FB_ST", "");
                     bp.EffectOnEnemy = AbilityEffectOnUnit.Harmful;
                     bp.Animation = Kingmaker.Visual.Animation.Kingmaker.Actions.UnitAnimationActionCastSpell.CastAnimationStyle.Directional;
                     bp.AnimationStyle = Kingmaker.View.Animation.CastAnimationStyle.CastActionDirectional;

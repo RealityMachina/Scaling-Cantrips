@@ -102,26 +102,26 @@ namespace ScalingCantrips.Utilities {
 #endif
 
         // All localized strings created in this mod, mapped to their localized key. Populated by CreateString.
-        static Dictionary<String, LocalizedString> textToLocalizedString = new Dictionary<string, LocalizedString>();
-        public static LocalizedString CreateString(string key, string value) {
+        static readonly Dictionary<String, LocalizedString> textToLocalizedString = new Dictionary<string, LocalizedString>();
+        public static LocalizedString CreateString(string key, string value)
+        {
             // See if we used the text previously.
             // (It's common for many features to use the same localized text.
             // In that case, we reuse the old entry instead of making a new one.)
-            LocalizedString localized;
-            if (textToLocalizedString.TryGetValue(value, out localized)) {
+            if (textToLocalizedString.TryGetValue(value, out var localized))
+            {
                 return localized;
             }
-            var strings = LocalizationManager.CurrentPack.Strings;
-            String oldValue;
-            if (strings.TryGetValue(key, out oldValue) && value != oldValue) {
+
 #if DEBUG
+            var current = LocalizationManager.CurrentPack.GetText(key, false);
+            if (current != "" && current != value)
+            {
                 Main.LogDebug($"Info: duplicate localized string `{key}`, different text.");
-#endif
             }
-            strings[key] = value;
-            localized = new LocalizedString {
-                m_Key = key
-            };
+#endif
+            LocalizationManager.CurrentPack.PutString(key, value);
+            localized = new LocalizedString { m_ShouldProcess = false, m_Key = key };
             textToLocalizedString[value] = localized;
             return localized;
         }
