@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\AssemblyPublicizer.1.0.2\build\AssemblyPublicizer.props" Condition="Exists('..\packages\AssemblyPublicizer.1.0.2\build\AssemblyPublicizer.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -36,26 +35,18 @@
     <LangVersion>7.1</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  <Target Name="Publicize" AfterTargets="Clean">
-    <ItemGroup>
-      <!-- Use $(KingmakerPath)\Kingmaker_Data\Managed\Assembly-CSharp.dll for Kingmaker -->
-      <Assemblies Include="/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/Assembly-CSharp.dll" />
-    </ItemGroup>
-
-    <PublicizeTask InputAssemblies="@(Assemblies)" OutputDir="$(SolutionDir)lib/" />
-  </Target>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/0Harmony.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>$(SolutionDir)lib\Assembly-CSharp_public.dll</HintPath>
+    <Reference Include="Assembly-CSharp_public">
+      <HintPath>..\..\WrathMods-TabletopTweaks-master\lib\Assembly-CSharp_public.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
@@ -63,21 +54,21 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Owlcat.Runtime.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/Owlcat.Runtime.Core.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Owlcat.Runtime.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Owlcat.Runtime.UI, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/Owlcat.Runtime.UI.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Owlcat.Runtime.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Owlcat.Runtime.Validation">
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/Owlcat.Runtime.Validation.dll</HintPath>
+      <HintPath>F:\SteamLibrary\steamapps\common\Pathfinder Second Adventure\Wrath_Data\Managed\Owlcat.Runtime.Validation.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -85,47 +76,44 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UniRx_public">
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/UniRx.dll</HintPath>
+      <HintPath>..\..\WrathMods-TabletopTweaks-master\lib\UniRx_public.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core">
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/System.Core.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\System.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/UnityEngine.UI.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityModManager">
-      <HintPath>/Users/ladyradia/Library/Application Support/Steam/steamapps/common/Pathfinder Second Adventure/Wrath.app/Contents/Resources/Data/Managed/UnityModManager\UnityModManager.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityModManager\UnityModManager.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="AssemblyPublicizer">
-      <HintPath>..\packages\AssemblyPublicizer.1.0.2\lib\net472\AssemblyPublicizer.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\Scaling.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
