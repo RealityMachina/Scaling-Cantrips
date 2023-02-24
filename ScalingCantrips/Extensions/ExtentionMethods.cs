@@ -19,6 +19,7 @@ using System.Linq;
 using ScalingCantrips.Utilities;
 using UnityEngine;
 using static Kingmaker.Blueprints.Classes.Prerequisites.Prerequisite;
+using Kingmaker.UnitLogic.Mechanics.Components;
 
 using ScalingCantrips;
 namespace ScalingCantrips.Extensions {
@@ -147,23 +148,18 @@ namespace ScalingCantrips.Extensions {
         }
 
         public static void RemoveFeatures(this BlueprintFeatureSelection selection, params BlueprintFeature[] features) {
-            foreach (var feature in features) {
-                var featureReference = feature.ToReference<BlueprintFeatureReference>();
-                if (selection.m_AllFeatures.Contains(featureReference)) {
-                    selection.m_AllFeatures = selection.m_AllFeatures.Where(f => !f.Equals(featureReference)).ToArray();
-                }
-            }
-            selection.m_AllFeatures = selection.m_AllFeatures.OrderBy(feature => feature.Get().Name).ToArray();
+            var featsToRemove = features.Select(feat => feat.ToReference<BlueprintFeatureReference>()).Intersect(selection.m_AllFeatures);
+            selection.m_AllFeatures.RemoveAll(foo => featsToRemove.Contains(foo));
         }
 
         public static void AddFeatures(this BlueprintFeatureSelection selection, params BlueprintFeature[] features) {
-            foreach (var feature in features) {
-                var featureReference = feature.ToReference<BlueprintFeatureReference>();
-                if (!selection.m_AllFeatures.Contains(featureReference)) {
-                    selection.m_AllFeatures = selection.m_AllFeatures.AppendToArray(featureReference);
-                }
-            }
-            selection.m_AllFeatures = selection.m_AllFeatures.OrderBy(feature => feature.Get().Name).ToArray();
+            var allFeatures = selection.m_AllFeatures.ToHashSet<BlueprintFeatureReference>();
+            features.ForEach(feat =>
+            {
+                var featRef = feat.ToReference<BlueprintFeatureReference>();
+                allFeatures.Append(featRef);
+            });
+            selection.m_AllFeatures = allFeatures.OrderBy(feature => feature.Get().Name).ToArray();
         }
         public static void AddPrerequisiteFeature(this BlueprintFeature obj, BlueprintFeature feature) {
             obj.AddPrerequisiteFeature(feature, GroupType.All);
