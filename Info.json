@@ -7,6 +7,6 @@
   "GameVersion": "2.10.0b",
   "Requirements": [],
   "AssemblyName": "ScalingCantrips.dll",
-  "HomePage": "",
+  "HomePage": "https://github.com/RealityMachina/Scaling-Cantrips",
   "EntryMethod": "ScalingCantrips.Main.Load"
 }
