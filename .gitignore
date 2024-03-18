@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/lib/Assembly-CSharp_public.hash
+/lib/Assembly-CSharp_public.dll
