@@ -152,14 +152,26 @@ namespace ScalingCantrips.Extensions {
             selection.m_AllFeatures.RemoveAll(foo => featsToRemove.Contains(foo));
         }
 
-        public static void AddFeatures(this BlueprintFeatureSelection selection, params BlueprintFeature[] features) {
-            var allFeatures = selection.m_AllFeatures.ToHashSet<BlueprintFeatureReference>();
+        public static void AddFeatures(this BlueprintFeatureSelection selection, params BlueprintFeature[] features)
+        {
+            var allFeatures = selection.m_AllFeatures.ToList<BlueprintFeatureReference>();
+            var regFeatures = selection.m_Features.ToList<BlueprintFeatureReference>();
             features.ForEach(feat =>
             {
-                var featRef = feat.ToReference<BlueprintFeatureReference>();
-                allFeatures.Append(featRef);
+                if (!allFeatures.Contains(feat))
+                {
+                    allFeatures.Add(feat.ToReference<BlueprintFeatureReference>());
+                }
+                if (!regFeatures.Contains(feat))
+                {
+                    regFeatures.Add(feat.ToReference<BlueprintFeatureReference>());
+                }
             });
-            selection.m_AllFeatures = allFeatures.OrderBy(feature => feature.Get().Name).ToArray();
+            selection.m_AllFeatures = allFeatures.ToArray();
+            selection.m_Features = regFeatures.ToArray();
+            selection.m_AllFeatures = selection.m_AllFeatures.OrderBy(feature => feature.Get().Name ?? "noname").ToArray();
+            selection.m_Features = selection.m_Features.OrderBy(feature => feature.Get().Name ?? "noname").ToArray();
+
         }
         public static void AddPrerequisiteFeature(this BlueprintFeature obj, BlueprintFeature feature) {
             obj.AddPrerequisiteFeature(feature, GroupType.All);
