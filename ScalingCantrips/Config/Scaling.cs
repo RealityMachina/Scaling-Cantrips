@@ -48,6 +48,9 @@ namespace ScalingCantrips.Config
 
         [JsonProperty]
         bool StartImmediately = true;
+
+        [JsonProperty]
+        bool DontAddFirebolt = false;
         public void OverrideSettings(IUpdatableSettings userSettings)
         {
             var loadedSettings = userSettings as Scaling;
@@ -66,6 +69,7 @@ namespace ScalingCantrips.Config
             DisruptLifeLevelsReq = Math.Max(loadedSettings.DisruptLifeLevelsReq, 1);
             DisruptLifeMaxDice = Math.Max(loadedSettings.DisruptLifeMaxDice, 1);
             DontAddUnholyZap = loadedSettings.DontAddUnholyZap;
+            DontAddFirebolt = loadedSettings.DontAddFirebolt;
             StartImmediately = loadedSettings.StartImmediately;
         }
 

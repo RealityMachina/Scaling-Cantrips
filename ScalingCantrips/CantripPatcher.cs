@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.Designers.Mechanics.Buffs;
 using Kingmaker.UnitLogic.Mechanics.Properties;
+using Kingmaker.ElementsSystem;
 
 namespace ScalingCantrips
 {
@@ -61,10 +62,10 @@ namespace ScalingCantrips
                 BlueprintAbility DivineZap = Resources.GetBlueprint<BlueprintAbility>("8a1992f59e06dd64ab9ba52337bf8cb5");
                 BlueprintBuff VirtueBuff = Resources.GetBlueprint<BlueprintBuff>("a13ad2502d9e4904082868eb71efb0c5");
                 BlueprintAbility Virtue = Resources.GetBlueprint<BlueprintAbility>("d3a852385ba4cd740992d1970170301a");
+                BlueprintAbility Ignition = Resources.GetBlueprint<BlueprintAbility>("564c2ac83c7844beb1921e69ab159ac6");
                 //  Main.Log("Patched " + AcidSplash.m_DisplayName + " to have this rankconfig: \n " + RankConfig.ToString());
-                // Main.Log("The whole ability now looks like: " + AcidSplash.ToString());
                 EditAndAddAbility(AcidSplash);
-
+                EditAndAddAbility(Ignition); //vanilla version of Firebolt
                 EditAndAddAbility(RayOfFrost);
                 EditAndAddAbility(Jolt);
 
@@ -119,6 +120,10 @@ namespace ScalingCantrips
 
             static void EditAndAddAbility(BlueprintAbility cantrip)
             {
+
+                  Main.Log("This is " + cantrip.ToString());
+           
+                
                 var RankConfig = Helpers.CreateContextRankConfig();
                
                 if(Main.settings.StartImmediately)
@@ -130,7 +135,7 @@ namespace ScalingCantrips
                     RankConfig.m_Progression = ContextRankProgression.StartPlusDivStep;
                     RankConfig.m_StartLevel = 1;
                 }
-
+                Main.Log("This is after we made a rankconfig.");
                 RankConfig.m_StepLevel = Main.settings.CasterLevelsReq;
                 RankConfig.m_Min = 1; //so this should be normal at first level
                 RankConfig.m_Max = Main.settings.MaxDice; // but get 4d3 at max level (though obviously
@@ -138,15 +143,30 @@ namespace ScalingCantrips
                 RankConfig.m_UseMin = true;
                 RankConfig.m_BaseValueType = ContextRankBaseValueType.CustomProperty;
                 RankConfig.m_CustomProperty = CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
-                cantrip.GetComponent<AbilityEffectRunAction>()
+
+                Main.Log("This is after we filled out a rankconfig.");
+            /*    
+             *    cantrip.GetComponent<AbilityEffectRunAction>()
                     .Actions.Actions.OfType<ContextActionDealDamage>().First().Value
                     .DiceCountValue.ValueType = ContextValueType.Rank;
 
                 cantrip.GetComponent<AbilityEffectRunAction>()
                     .Actions.Actions.OfType<ContextActionDealDamage>().First().Value
                     .DiceCountValue.Value = 0;
+            */
+            // the tl;dr problem - the above no longer works in the latest version of WOTR. Adjust to fix.
 
-                if(cantrip.GetComponent<ContextRankConfig>() == null)
+                foreach (Element elements in cantrip.ElementsArray)
+                {
+                    if(elements is ContextActionDealDamage actionDamage)
+                    {
+                        actionDamage.Value.DiceCountValue.ValueType = ContextValueType.Rank;
+                        actionDamage.Value.DiceCountValue.Value = 0;
+                    }
+                }
+
+                Main.Log("This is after we added to a component");
+                if (cantrip.GetComponent<ContextRankConfig>() == null)
                 {
                     cantrip.AddComponent(RankConfig);
                 }
@@ -154,6 +174,7 @@ namespace ScalingCantrips
                 {
                     cantrip.ReplaceComponents<ContextRankConfig>(RankConfig);
                 }
+                Main.Log("This is after we added/swapped context rank configs");
                 var newString = cantrip.Description;
 
                 newString += " Damage dice is increased by 1 every " + Main.settings.CasterLevelsReq +  " caster level(s), up to a maximum of " + Main.settings.MaxDice + "d3.";

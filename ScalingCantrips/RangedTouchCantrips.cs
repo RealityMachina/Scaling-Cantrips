@@ -49,8 +49,11 @@ namespace ScalingCantrips
                 if(!Main.settings.DontAddUnholyZap)
                 {
                     AddUnholyZap();
-                }             
-                AddFirebolt();
+                }
+                if (!Main.settings.DontAddFirebolt)
+                {
+                    AddFirebolt();
+                }
             }
             static void AddFirebolt()
             {

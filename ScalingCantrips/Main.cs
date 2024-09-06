@@ -93,6 +93,8 @@ namespace ScalingCantrips
             Main.settings.JoltingGraspMaxDice = (int)GUILayout.HorizontalSlider(Main.settings.JoltingGraspMaxDice, 1, 40, options);
 
 
+            Main.settings.DontAddFirebolt = GUILayout.Toggle(Main.settings.DontAddFirebolt, "Check this to prevent Firebolt from being added - disabled by default for older saves", options);
+
             Main.settings.DontAddUnholyZap = GUILayout.Toggle(Main.settings.DontAddUnholyZap, "Check this to prevent Unholy Zap from being added", options);
 
             GUILayout.Label("Unholy Zap Caster Levels Required", options);
@@ -104,6 +106,7 @@ namespace ScalingCantrips
             Main.settings.DisruptLifeMaxDice = (int)GUILayout.HorizontalSlider(Main.settings.DisruptLifeMaxDice, 1, 40, options);
 
             Main.settings.StartImmediately = GUILayout.Toggle(Main.settings.StartImmediately, "Check this to have caster levels take effect immediately (e.g Wizard 2 gets you 2d3 with default settings)", options);
+
 
         }
 

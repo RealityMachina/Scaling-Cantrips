@@ -11,8 +11,9 @@
   "DisruptLifeLevelsReq": 2,
   "DisruptLifeMaxDice": 6,
   "DontAddUnholyZap": false,
+  "DontAddFirebolt": false, //WOTR patch added vanilla equivalent, let this be toggled on for people who don't want duplicates
   "StartImmediately": true //default "true" means caster rank calculations assume One plus (caster level ) divided by (levelsreq), so with default settings: 2nd caster level at level 2 means 2d3.
   //If set to false, it uses Start plus Div Step, whose formula is 1 +( (caster level - start level) / levels req ). Start levels for cantrips are set to be level 2.
-    // so still with default settings, it takes until level 3 before we get 2d3, since then the formula is 1 + ((3 - 2) / 2), which gives us two instead of one. (The game puts in a zero if the latter side of the formula goes into the negatives)
-  
+  // so still with default settings, it takes until level 3 before we get 2d3, since then the formula is 1 + ((3 - 2) / 2), which gives us two instead of one. (The game puts in a zero if the latter side of the formula goes into the negatives)
+
 }

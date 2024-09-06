@@ -43,6 +43,7 @@ namespace ScalingCantrips
 
         public  bool DontAddUnholyZap = false;
 
+        public bool DontAddFirebolt = false;
 
         public bool StartImmediately = true;
     }
