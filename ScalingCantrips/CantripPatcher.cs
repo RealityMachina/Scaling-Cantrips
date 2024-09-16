@@ -19,6 +19,7 @@ using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.Designers.Mechanics.Buffs;
 using Kingmaker.UnitLogic.Mechanics.Properties;
 using Kingmaker.ElementsSystem;
+using System.Diagnostics.Eventing.Reader;
 
 namespace ScalingCantrips
 {
@@ -70,7 +71,7 @@ namespace ScalingCantrips
                 EditAndAddAbility(Jolt);
 
                 if(!Main.settings.IgnoreDivineZap)
-                    EditAndAddAbility(DivineZap);
+                    EditAndAddAbility(DivineZap, true);
 
                 EditAndAddAbilityUndead(DisruptUndead);
                 EditAndAddTempHP(VirtueBuff, Virtue);
@@ -118,7 +119,7 @@ namespace ScalingCantrips
                 cantrip.SetDescription(newString);
             }
 
-            static void EditAndAddAbility(BlueprintAbility cantrip)
+            static void EditAndAddAbility(BlueprintAbility cantrip, bool IsDivineZap = false)
             {
 
                   Main.Log("This is " + cantrip.ToString());
@@ -145,24 +146,38 @@ namespace ScalingCantrips
                 RankConfig.m_CustomProperty = CreateHighestCasterLevel().ToReference<BlueprintUnitPropertyReference>();
 
                 Main.Log("This is after we filled out a rankconfig.");
-            /*    
-             *    cantrip.GetComponent<AbilityEffectRunAction>()
-                    .Actions.Actions.OfType<ContextActionDealDamage>().First().Value
-                    .DiceCountValue.ValueType = ContextValueType.Rank;
+                /*    
+                 *    cantrip.GetComponent<AbilityEffectRunAction>()
+                        .Actions.Actions.OfType<ContextActionDealDamage>().First().Value
+                        .DiceCountValue.ValueType = ContextValueType.Rank;
 
-                cantrip.GetComponent<AbilityEffectRunAction>()
-                    .Actions.Actions.OfType<ContextActionDealDamage>().First().Value
-                    .DiceCountValue.Value = 0;
-            */
-            // the tl;dr problem - the above no longer works in the latest version of WOTR. Adjust to fix.
+                    cantrip.GetComponent<AbilityEffectRunAction>()
+                        .Actions.Actions.OfType<ContextActionDealDamage>().First().Value
+                        .DiceCountValue.Value = 0;
+                */
+                // the tl;dr problem - the above no longer works in the latest version of WOTR. Adjust to fix.
+
+                // new problem - Keen-Eyed Adventurer works via having a conditional check. We're currently overwriting both damage values without adjusting...
+
+                bool KeenEyedAdventurer = false;
 
                 foreach (Element elements in cantrip.ElementsArray)
                 {
-                    if(elements is ContextActionDealDamage actionDamage)
-                    {
-                        actionDamage.Value.DiceCountValue.ValueType = ContextValueType.Rank;
-                        actionDamage.Value.DiceCountValue.Value = 0;
-                    }
+            
+ 
+                        if (elements is ContextActionDealDamage actionDamage)
+                        {
+                            actionDamage.Value.DiceCountValue.ValueType = ContextValueType.Rank;
+                            actionDamage.Value.DiceCountValue.Value = 0;
+
+                        //NAIVE assumption - first result for damage is the conditional if true for the witch archetype across the cantrips when applicable. 
+                        if (!IsDivineZap && !KeenEyedAdventurer) //exclude divine zap since it doesn't have the keen eyed adventurer adjustments
+                            {
+                                 KeenEyedAdventurer = true;
+                                 actionDamage.Value.BonusValue.ValueType = ContextValueType.Rank; //heck it, we stack it. This will make the witch powerful but eh
+                            }                     
+                        }
+                   
                 }
 
                 Main.Log("This is after we added to a component");
@@ -188,7 +203,6 @@ namespace ScalingCantrips
             static void EditAndAddAbilityUndead(BlueprintAbility cantrip)
             {
                 var RankConfig = Helpers.CreateContextRankConfig();
-
                 // RankConfig.m_Type = AbilityRankType.ProjectilesCount;
                 if (Main.settings.StartImmediately)
                 {

@@ -57,7 +57,9 @@ namespace ScalingCantrips
                 var UnholyRef = Resources.GetModBlueprint<BlueprintAbility>("RMUnholyZapEffect");
                 var JoltingRef = Resources.GetModBlueprint<BlueprintAbility>("RMJoltingGrasp");
                 var JoltingCastRef = Resources.GetModBlueprint<BlueprintAbility>("RMJoltingGraspEffect");
-                BlueprintAbility[] cantripArray = { FireboltRef, UnholyRef, JoltingRef, JoltingCastRef};
+
+                var IgnitionRef = Resources.GetBlueprint<BlueprintAbility>("564c2ac83c7844beb1921e69ab159ac6"); //manually bugfixing, hurrah
+                BlueprintAbility[] cantripArray = { FireboltRef, UnholyRef, JoltingRef, JoltingCastRef, IgnitionRef };
 
                 foreach (var refer in cantripArray)
                 {
